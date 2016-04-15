@@ -10,6 +10,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
     <!-- 使用注解的包，扫描子集 -->
     <context:component-scan base-package="com.tgwy.controller"/>
+    <context:component-scan base-package="com.tgwy.json"/>
 
     <bean id="viewResolver" 
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">

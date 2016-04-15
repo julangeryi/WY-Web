@@ -97,7 +97,6 @@
 								<p class="font-gray-dark">设备信息参数</p>
 									<div class="example-box">
 							    <div class="example-code">
-							
 							        <table class="table table-condensed">
 							            <thead>
 							                <tr>

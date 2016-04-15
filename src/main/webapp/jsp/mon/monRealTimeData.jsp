@@ -50,22 +50,21 @@
 
 <script type="text/javascript"
 	src="assets/js/minified/aui-production.min.js"></script>
-	
-<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+
+<script src="assets/js/echarts.min.js"></script>
 
 <script>
-            jQuery(window).load(
-                function(){
+	jQuery(window).load(function() {
 
-                    var wait_loading = window.setTimeout( function(){
-                      $('#loading').slideUp('fast');
-                      jQuery('body').css('overflow','auto');
-                    },1000
-                    );
+		var wait_loading = window.setTimeout(function() {
+			$('#loading').slideUp('fast');
+			jQuery('body').css('overflow', 'auto');
+		}, 1000);
 
-                });
+	});
+</script>
 
-        </script>
+
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
@@ -76,70 +75,190 @@
 	</div>
 
 	<div id="page-wrapper" class="demo-example">
-		
+
 		<!-- #page-header -->
 		<jsp:include page="../common/page_header.jsp" flush="true"></jsp:include>
-		
+
 		<!-- #page-sidebar -->
 		<jsp:include page="../common/sidebar-menu.jsp" flush="true"></jsp:include>
-		
+
 		<div id="page-content-wrapper">
-			
+
 			<!-- #page-title -->
 			<jsp:include page="../common/page-title.jsp" flush="true"></jsp:include>
-			
+
 			<div id="page-content">
-			<div id="main" style="height:400px"></div>
-			<script type="text/javascript">
-        // 路径配置
-        require.config({
-            paths: {
-                echarts: 'http://echarts.baidu.com/build/dist'
-            }
-        });
-        
-        // 使用
-        require(
-            [
-                'echarts',
-                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
-            ],
-            function (ec) {
-                // 基于准备好的dom，初始化echarts图表
-                var myChart = ec.init(document.getElementById('main')); 
-                
-                var option = {
-                    tooltip: {
-                        show: true
-                    },
-                    legend: {
-                        data:['销量']
-                    },
-                    xAxis : [
-                        {
-                            type : 'category',
-                            data : ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-                        }
-                    ],
-                    yAxis : [
-                        {
-                            type : 'value'
-                        }
-                    ],
-                    series : [
-                        {
-                            "name":"销量",
-                            "type":"bar",
-                            "data":[5, 20, 40, 10, 10, 20]
-                        }
-                    ]
-                };
-        
-                // 为echarts对象加载数据 
-                myChart.setOption(option); 
-            }
-        );
-    </script>
+				<div class="example-box">
+					<div class="example-code">
+						<div class="tabs">
+							<ul>
+								<li><a href="#normal-tabs-1" title="Tab 1">地表降雨量 </a></li>
+								<li><a href="#normal-tabs-2" title="Tab 2">地下水位 </a></li>
+								<li><a href="#normal-tabs-3" title="Tab 3">深孔位移</a></li>
+								<li><a href="#normal-tabs-4" title="Tab 4">报警信息</a></li>
+							</ul>
+							<div id="normal-tabs-1">
+								<div id="main1" style="width: 1100px; height: 400px;"></div>
+								<script type="text/javascript">
+	
+								var myChart = echarts.init(document.getElementById('main1'));
+								var categories = [];
+								var values = [];
+								
+								$.ajax({
+									url : "${pageContext.request.contextPath}/getEc.do",
+									type : "GET",
+									dataType : "json",
+									async : false,
+									success:function(json){
+										values = json.categories;
+										categories = json.values;
+									}
+									
+								});
+								// 指定图表的配置项和数据
+								var option = {
+
+									title : {
+										text : '地下水位图'
+									},
+									tooltip : {},
+									legend : {
+										data : [ '雨量(1)','雨量(2)','雨量(3)','雨量(4)' ]
+									},
+									xAxis : [ {
+										type : 'category',
+										data : categories
+									}],
+									yAxis : {},
+									series : [ {
+										name : '雨量(1)',
+										type : 'line',
+										data : values[0]
+										} ,
+										{
+											name : '雨量(2)',
+											type : 'line',
+											data : values[1]
+											} ,
+										{
+											name : '雨量(3)',
+											type : 'line',
+											data : values[2]
+											} ,
+										{
+											name : '雨量(4)',
+											type : 'line',
+											data : values[3]
+											} 
+									]
+								};
+								myChart.setOption(option);
+								
+								</script>
+
+							</div>
+							<div id="normal-tabs-2">
+								<div id="main2" style="width: 1000px; height: 400px;"></div>
+								<script type="text/javascript">
+									// 基于准备好的dom，初始化echarts实例
+									var myChart = echarts.init(document
+											.getElementById('main2'));
+
+									// 指定图表的配置项和数据
+									var option = {
+
+										title : {
+											text : '地下水位图'
+										},
+										tooltip : {},
+										legend : {
+											data : [ '销量' ]
+										},
+										xAxis : {
+											data : [ "衬衫", "羊毛衫", "雪纺衫", "裤子",
+													"高跟鞋", "袜子" ]
+										},
+										yAxis : {},
+										series : [ {
+											name : '销量',
+											type : 'line',
+											data : [ 5, 20, 36, 10, 10, 20 ]
+										} ]
+									};
+
+									// 使用刚指定的配置项和数据显示图表。
+									myChart.setOption(option);
+								</script>
+
+							</div>
+							<div id="normal-tabs-3">
+								<div id="main3" style="width: 600px; height: 400px;"></div>
+								<script type="text/javascript">
+									// 基于准备好的dom，初始化echarts实例
+									var myChart = echarts.init(document
+											.getElementById('main3'));
+
+									// 指定图表的配置项和数据
+									var option = {
+										title : {
+											text : '深孔位移图'
+										},
+										tooltip : {},
+										legend : {
+											data : [ '销量' ]
+										},
+										xAxis : {
+											data : [ "衬衫", "羊毛衫", "雪纺衫", "裤子",
+													"高跟鞋", "袜子" ]
+										},
+										yAxis : {},
+										series : [ {
+											name : '销量',
+											type : 'bar',
+											data : [ 5, 20, 36, 10, 10, 20 ]
+										} ]
+									};
+
+									// 使用刚指定的配置项和数据显示图表。
+									myChart.setOption(option);
+								</script>
+							</div>
+							<div id="normal-tabs-4">
+								<div id="main4" style="width: 600px; height: 400px;"></div>
+								<script type="text/javascript">
+									// 基于准备好的dom，初始化echarts实例
+									var myChart = echarts.init(document
+											.getElementById('main4'));
+
+									// 指定图表的配置项和数据
+									var option = {
+										title : {
+											text : '报警信息'
+										},
+										tooltip : {},
+										legend : {
+											data : [ '销量' ]
+										},
+										xAxis : {
+											data : [ "衬衫", "羊毛衫", "雪纺衫", "裤子",
+													"高跟鞋", "袜子" ]
+										},
+										yAxis : {},
+										series : [ {
+											name : '销量',
+											type : 'bar',
+											data : [ 5, 20, 36, 10, 10, 20 ]
+										} ]
+									};
+
+									// 使用刚指定的配置项和数据显示图表。
+									myChart.setOption(option);
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- #page-content -->
 		</div>

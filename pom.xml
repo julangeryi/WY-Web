@@ -7,9 +7,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>WY-Web Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	
-	
-<properties>
+
+
+	<properties>
 		<spring.version>4.0.0.RELEASE</spring.version>
 	</properties>
 
@@ -22,26 +22,26 @@
 			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
-		
-		    <!-- 添加Servlet支持 -->
-  	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>javax.servlet-api</artifactId>
-		<version>3.1.0</version>
-	</dependency>
-	
-	    <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
-    <version>1.0.2.RELEASE</version>
-</dependency>
-	
-	<dependency>
-		<groupId>javax.servlet.jsp</groupId>
-		<artifactId>javax.servlet.jsp-api</artifactId>
-		<version>2.3.1</version>
-	</dependency>
-		
+
+		<!-- 添加Servlet支持 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>1.0.2.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -166,56 +166,62 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.2</version>
 		</dependency>
-		
-		<!-- 添加mybatis支持 -->
-	 <dependency>
-		<groupId>org.mybatis</groupId>
-		<artifactId>mybatis</artifactId>
-		<version>3.3.0</version>
-	</dependency>
-	<dependency>
-	<groupId>org.mybatis</groupId>
-	<artifactId>mybatis-spring</artifactId>
-	<version>1.2.4</version>
-</dependency>
-	
-	
-	<!-- jdbc驱动包  -->
-	<dependency>
-		<groupId>mysql</groupId>
-		<artifactId>mysql-connector-java</artifactId>
-		<version>5.1.38</version>
-	</dependency>
-	
-	<dependency>
-		<groupId>org.apache.shiro</groupId>
-		<artifactId>shiro-core</artifactId>
-		<version>1.2.4</version>
-	</dependency>
-	
-	<dependency>
-		<groupId>org.apache.shiro</groupId>
-		<artifactId>shiro-web</artifactId>
-		<version>1.2.4</version>
-	</dependency>
-	
-	<dependency>
-		<groupId>org.apache.shiro</groupId>
-		<artifactId>shiro-spring</artifactId>
-		<version>1.2.4</version>
-	</dependency>
 
-	<dependency>
-	<groupId>commons-fileupload</groupId>
-	<artifactId>commons-fileupload</artifactId>
-	<version>1.2.2</version>
-</dependency>
-	<dependency>
-	<groupId>commons-io</groupId>
-	<artifactId>commons-io</artifactId>
-	<version>1.4</version>
-</dependency>
-	
+		<!-- 添加mybatis支持 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+
+		<!-- jdbc驱动包 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.38</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.6</version>
+		</dependency>
+
 
 	</dependencies>
 
