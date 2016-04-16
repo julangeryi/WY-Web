@@ -1,7 +1,6 @@
 package com.tgwy.json;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +13,8 @@ import com.alibaba.fastjson.JSON;
 
 @Controller
 public class GenerateJson {
+	
+	
 	
 	@ResponseBody
 	@RequestMapping(value = "getEc", produces = "text/html;charset=UTF-8")

@@ -17,38 +17,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getByClassify" resultMap="UpLoadResult">
 	    select * from
-		t_upload t where t.uploadclassify=#{upLoadClassify,jdbcType=VARCHAR} and
+		internal_upload t where t.uploadclassify=#{upLoadClassify,jdbcType=VARCHAR} and
 		t.deleteflag=#{deleteFlag,jdbcType=INTEGER}
 	</select>
 	
 	
 	<select id="getAllUpLoadInfo" resultMap="UpLoadResult">
-	    select * from t_upload t where t.deleteflag=#{deleteFlag,jdbcType=INTEGER}
+	    select * from internal_upload t where t.deleteflag=#{deleteFlag,jdbcType=INTEGER}
 	</select>
 	
 	<select id="getByUpLoadUserName" resultMap="UpLoadResult">
 		select * from
-		t_upload t where t.uploaduser=#{upLoadUser,jdbcType=VARCHAR} and
+		internal_upload t where t.uploaduser=#{upLoadUser,jdbcType=VARCHAR} and
 		t.uploadclassify=#{upLoadClassify,jdbcType=VARCHAR} and
 		t.deleteflag=#{deleteFlag,jdbcType=INTEGER}
 	</select>
 
 	<select id="insertUpLoad">
 		insert into
-		t_upload(uploadname,uploaddate,uploaduser,uploadpath,uploadclassify)
+		internal_upload(uploadname,uploaddate,uploaduser,uploadpath,uploadclassify)
 		values(#{upLoadName,jdbcType=VARCHAR},#{upLoadDate,jdbcType=DATE},#{upLoadUser,jdbcType=VARCHAR},#{upLoadPath,jdbcType=VARCHAR},#{upLoadClassify,jdbcType=VARCHAR})
 	</select>
 	
 	<select id="deleteUpload">
-	    update t_upload t set t.deleteflag=1 where t.id=#{id,jdbcType=INTEGER} and t.upLoadName=#{upLoadName,jdbcType=VARCHAR}
+	    update internal_upload t set t.deleteflag=1 where t.id=#{id,jdbcType=INTEGER} and t.upLoadName=#{upLoadName,jdbcType=VARCHAR}
 	</select>
 	
 	
 	<select id="deleteDate">
-	    update t_upload t set t.deletedate=#{deleteDate,jdbcType=VARCHAR} where t.id=#{id,jdbcType=VARCHAR} and t.upLoadName=#{upLoadName,jdbcType=VARCHAR}
+	    update internal_upload t set t.deletedate=#{deleteDate,jdbcType=VARCHAR} where t.id=#{id,jdbcType=VARCHAR} and t.upLoadName=#{upLoadName,jdbcType=VARCHAR}
 	</select>
 	
 	<select id="resEraser">
-	    update t_upload t set t.deleteflag=0 where t.id=#{id,jdbcType=INTEGER} and t.upLoadName=#{upLoadName,jdbcType=VARCHAR}
+	    update internal_upload t set t.deleteflag=0 where t.id=#{id,jdbcType=INTEGER} and t.upLoadName=#{upLoadName,jdbcType=VARCHAR}
 	</select>
 </mapper> 
