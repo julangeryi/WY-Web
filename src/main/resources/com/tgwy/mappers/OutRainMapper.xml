@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tgwy.dao.OutRainDao">
+	<resultMap type="OutRainEntity" id="OutRainResult">
+		<result property="num" column="num" />
+		<result property="sensorId" column="sensorid" />
+		<result property="value" column="value" />
+		<result property="unix" column="unix" />
+		<result property="dateTime" column="datetime" />
+	</resultMap>
+
+	<select id="getRainInfo" resultMap="OutRainResult">
+	    select * from out_rain
+	</select>
+	
+	<select id="getRainLegend" resultType="String">
+	     select distinct CONCAT('雨量监测(',t.sensor_id,')点') from out_rain t order by t.sensor_id;
+	</select>
+	
+	
+	
+	<select id="getRainLegendSensorID" resultType="java.lang.Integer">
+	     select distinct t.sensor_id from out_rain t order by t.sensor_id;
+	</select>
+	
+	<select id="getRainValue" resultType="java.lang.Double">
+	    select t.value from out_rain t;
+	</select>
+	
+	<select id="getRainValueBySensorId" parameterType="java.lang.Integer" resultType="String">
+	    select t.value from out_rain t where t.sensor_id=#{sensorId}
+	</select>
+	
+	<select id="getRainCategory" resultType="String">
+	    SELECT distinct DATE_FORMAT(t.datetime,'%Y-%m-%d') FROM out_rain t 
+	</select>
+	
+</mapper> 

@@ -104,15 +104,16 @@
 								var myChart = echarts.init(document.getElementById('main1'));
 								var categories = [];
 								var values = [];
+								var legend = [];
 								
 								$.ajax({
-									url : "${pageContext.request.contextPath}/getEc.do",
+									url : "${pageContext.request.contextPath}/getOutRainInfo.do",
 									type : "GET",
 									dataType : "json",
 									async : false,
 									success:function(json){
-										values = json.categories;
-										categories = json.values;
+										values = json.values;
+										categories = json.categories;
 									}
 									
 								});
@@ -120,11 +121,11 @@
 								var option = {
 
 									title : {
-										text : '地下水位图'
+										text : '地表降雨量'
 									},
 									tooltip : {},
 									legend : {
-										data : [ '雨量(1)','雨量(2)','雨量(3)','雨量(4)' ]
+										data : [ '雨量(1)','雨量(2)' ]
 									},
 									xAxis : [ {
 										type : 'category',
@@ -140,17 +141,7 @@
 											name : '雨量(2)',
 											type : 'line',
 											data : values[1]
-											} ,
-										{
-											name : '雨量(3)',
-											type : 'line',
-											data : values[2]
-											} ,
-										{
-											name : '雨量(4)',
-											type : 'line',
-											data : values[3]
-											} 
+											}  
 									]
 								};
 								myChart.setOption(option);
