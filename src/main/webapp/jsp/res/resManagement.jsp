@@ -51,6 +51,7 @@
 
 <script type="text/javascript"
 	src="assets/js/minified/aui-production.min.js"></script>
+<script type="text/javascript" src="assets/js/ajaxupload.js"></script>
 
 <link href="../../assets/css/bootstrap.file-input.css" rel="stylesheet">
 
@@ -91,26 +92,53 @@
 
 				<div class="infobox notice-bg">
 					<div class="large btn font-blue info-icon">
-						<i class="glyph-icon icon-cloud-upload">
-						</i>
+						<i class="glyph-icon icon-cloud-upload"> </i>
 					</div>
 					<div class="dropdown">
-					<a href="javascript:;" title="点击上传" 
-						data-toggle="dropdown"> 资料上传 </a>
-					<ul class="dropdown-menu float-right">
+						<button id="uploadButAjax">资料上传</button>
+						<ul class="dropdown-menu float-right">
+							<!--  
 						<form method="POST" enctype="multipart/form-data"
 							action="${pageContext.request.contextPath}/resUpLoad.do">
 							<input type="file" id="file" name="file"><br /> 
 							<input 	type="submit" value="Upload" class="glyph-icon icon-cloud-download">
 						</form>
-					</ul>
-				</div>
-					<h4 class="infobox-title"> </h4>
-					<p><small>上传请点击上面的按钮</small></p>
+					-->
+						</ul>
+					</div>
+					<h4 class="infobox-title"></h4>
+					<p>
+						<small>上传请点击上面的按钮</small>
+					</p>
 				</div>
 
 				<script type="text/javascript">
 					$(document).ready(function() {
+						new AjaxUpload(
+								'#uploadButAjax',
+								{
+									action : '${pageContext.request.contextPath}/upLoad.do',
+									name : 'uploadFile',
+									responseType : 'json',
+									onSubmit : function(file, ext) {
+										if (ext	&& /^(rar|pdf)$/
+														.test(ext
+																.toLowerCase())) {
+											this
+													.setData({
+														'picName' : file
+													});
+										} else {
+											alert("请上传格式为 rar|pdf的文件！");
+											return false;
+										}
+									},
+									onComplete : function(
+											file,
+											response) {
+										alert("ssdfad");
+									}
+								});
 					});
 				</script>
 				<table class="table" id="example1">
