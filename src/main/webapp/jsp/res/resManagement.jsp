@@ -108,7 +108,6 @@
 					<h4 class="infobox-title"> </h4>
 					<p><small>上传请点击上面的按钮</small></p>
 				</div>
-		
 
 				<script type="text/javascript">
 					$(document).ready(function() {

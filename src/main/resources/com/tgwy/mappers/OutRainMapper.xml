@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.tgwy.dao.OutRainDao">
 	<resultMap type="OutRainEntity" id="OutRainResult">
 		<result property="num" column="num" />
-		<result property="sensorId" column="sensorid" />
+		<result property="sensorId" column="sensor_id" />
 		<result property="value" column="value" />
 		<result property="unix" column="unix" />
 		<result property="dateTime" column="datetime" />
@@ -36,5 +36,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getRainCategory" resultType="String">
 	    SELECT distinct DATE_FORMAT(t.datetime,'%Y-%m-%d') FROM out_rain t 
 	</select>
+	
+	
+	
+	
+	
+	<!-- History -->
+	
+	<select id="getRainHistoryQueryValue" resultType="java.lang.Double" >
+	    select t.value from out_rain t where t.sensor_id=#{0} and t.datetime &gt; DATE_FORMAT(#{1},'%Y-%m-%d') and t.datetime &lt; DATE_FORMAT(#{2},'%Y-%m-%d');
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper> 

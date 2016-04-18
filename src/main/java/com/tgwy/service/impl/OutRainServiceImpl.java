@@ -45,4 +45,8 @@ public class OutRainServiceImpl implements OutRainService {
 		return outRainDao.getRainValueBySensorId(sensorId);
 	}
 
+	public List<Double> getRainHistoryQueryValue(Integer sensorId,String from, String to) {
+		return outRainDao.getRainHistoryQueryValue(sensorId,from, to);
+	}
+
 }

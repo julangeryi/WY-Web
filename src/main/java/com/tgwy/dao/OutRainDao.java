@@ -17,5 +17,9 @@ public interface OutRainDao {
 	public List<Double> getRainValue();
 	
 	public List<Double> getRainValueBySensorId(Integer sensorId);
+	
+	//History
+	
+	public List<Double> getRainHistoryQueryValue(Integer sensorId,String from ,String to);
 
 }

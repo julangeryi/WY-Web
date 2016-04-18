@@ -99,8 +99,9 @@
 							</ul>
 							<div id="normal-tabs-1">
 								<div id="main1" style="width: 1100px; height: 400px;"></div>
+								
 								<script type="text/javascript">
-	
+									
 								var myChart = echarts.init(document.getElementById('main1'));
 								var categories = [];
 								var values = [];
@@ -129,6 +130,7 @@
 									},
 									xAxis : [ {
 										type : 'category',
+										 boundaryGap : false,
 										data : categories
 									}],
 									yAxis : {},
@@ -145,6 +147,66 @@
 									]
 								};
 								myChart.setOption(option);
+								</script>
+								
+								
+								
+								<script type="text/javascript">
+								  $(document).ready(function () {  
+								        setInterval("startRequest()", 10000);  
+								    });
+								  
+								  function startRequest(){
+									  
+									 	var myChart = echarts.init(document.getElementById('main1'));
+										var categories = [];
+										var values = [];
+										var legend = [];
+										
+										$.ajax({
+											url : "${pageContext.request.contextPath}/getOutRainInfo.do",
+											type : "GET",
+											dataType : "json",
+											async : false,
+											success:function(json){
+												values = json.values;
+												categories = json.categories;
+											}
+											
+										});
+										// 指定图表的配置项和数据
+										var option = {
+
+											title : {
+												text : '地表降雨量'
+											},
+											tooltip : {},
+											legend : {
+												data : [ '雨量(1)','雨量(2)' ]
+											},
+											xAxis : [ {
+												type : 'category',
+												 boundaryGap : false,
+												data : categories
+											}],
+											yAxis : {},
+											series : [ {
+												name : '雨量(1)',
+												type : 'line',
+												data : values[0]
+												} ,
+												{
+													name : '雨量(2)',
+													type : 'line',
+													data : values[1]
+													}  
+											]
+										};
+										myChart.setOption(option);
+										
+								  }
+								
+	
 								
 								</script>
 

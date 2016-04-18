@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- AUI Framework -->
 <html>
@@ -52,18 +53,15 @@
 	src="assets/js/minified/aui-production.min.js"></script>
 
 <script>
-            jQuery(window).load(
-                function(){
+	jQuery(window).load(function() {
 
-                    var wait_loading = window.setTimeout( function(){
-                      $('#loading').slideUp('fast');
-                      jQuery('body').css('overflow','auto');
-                    },1000
-                    );
+		var wait_loading = window.setTimeout(function() {
+			$('#loading').slideUp('fast');
+			jQuery('body').css('overflow', 'auto');
+		}, 1000);
 
-                });
-
-        </script>
+	});
+</script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
@@ -74,19 +72,75 @@
 	</div>
 
 	<div id="page-wrapper" class="demo-example">
-		
+
 		<!-- #page-header -->
 		<jsp:include page="../common/page_header.jsp" flush="true"></jsp:include>
-		
+
 		<!-- #page-sidebar -->
 		<jsp:include page="../common/sidebar-menu.jsp" flush="true"></jsp:include>
-		
+
 		<div id="page-content-wrapper">
-			
+
 			<!-- #page-title -->
 			<jsp:include page="../common/page-title.jsp" flush="true"></jsp:include>
-			
+
 			<div id="page-content">
+					<div class="example-code">
+						<div class="tabs">
+							<ul>
+								<li><a href="#normal-tabs-1" title="Tab 1">地表降雨量 </a></li>
+								<li><a href="#normal-tabs-2" title="Tab 2">地下水位 </a></li>
+								<li><a href="#normal-tabs-3" title="Tab 3">深孔位移</a></li>
+								<li><a href="#normal-tabs-4" title="Tab 4">报警信息</a></li>
+							</ul>
+							<div id="normal-tabs-1">
+								<script type="text/javascript">
+									$(document).ready(function() {
+									});
+								</script>
+								<table class="table" id="example1">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>测量点</th>
+											<th>测量值</th>
+											<th>测量时间</th>
+											<th>数据下载</th>
+										</tr>
+									</thead>
+									<tbody>
+									<c:forEach items="${outRainList }" var="o">
+										<tr>
+											<td>${o.num }</td>
+											<td>${o.sensorId }</td>
+											<td>${o.value }</td>
+											<td>${o.dateTime }</td>
+											<td><a
+									href="${pageContext.request.contextPath}/monHistoryDownLoad.do?num=${o.num }"
+									class="btn small bg-blue-alt tooltip-button"
+									data-placement="top" title="下载"> <i
+										class="glyph-icon icon-cloud-download"></i>
+								</a></td>
+										</tr>
+										
+									</c:forEach>
+									</tbody>
+									<tfoot>
+										<tr>
+											<th></th>
+											<th>测量点</th>
+											<th>测量值</th>
+											<th>测量时间</th>
+											<th>数据下载</th>
+										</tr>
+									</tfoot>
+								</table>
+							</div>
+							<div id="normal-tabs-2"></div>
+							<div id="normal-tabs-3"></div>
+							<div id="normal-tabs-4"></div>
+						</div>
+					</div>
 			</div>
 			<!-- #page-content -->
 		</div>

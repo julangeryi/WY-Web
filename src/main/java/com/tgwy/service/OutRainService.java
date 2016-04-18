@@ -17,5 +17,7 @@ public interface OutRainService {
 	public List<Double> getRainValue();
 	
 	public List<Double> getRainValueBySensorId(Integer sensorId);
+	
+	public List<Double> getRainHistoryQueryValue(Integer sensorId,String from ,String to);
 
 }
