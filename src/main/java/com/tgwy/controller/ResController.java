@@ -19,9 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tgwy.constant.TgwyConstant;
 import com.tgwy.entity.UpLoadEntity;
 import com.tgwy.service.UpLoadService;
-import com.tgwy.util.TgwyUtil;
+import com.tgwy.util.TgwyDateStringUtil;
 
 @Controller
 public class ResController {
@@ -55,12 +56,12 @@ public class ResController {
 		if (!file.isEmpty()) {
 			try {
 				// 文件保存路径
-				String filePath = "E:\\Mars\\eclipse\\workspace\\WY-Web\\upload\\" + file.getOriginalFilename();
+				String filePath = TgwyConstant.inputLocation + file.getOriginalFilename();
 				// 转存文件
 				file.transferTo(new File(filePath));
 				Subject subject = SecurityUtils.getSubject();
 				Session session = subject.getSession();
-				upLoadService.insertUpLoad(file.getOriginalFilename(), TgwyUtil.getLocalDate(),
+				upLoadService.insertUpLoad(file.getOriginalFilename(), TgwyDateStringUtil.getLocalDate(),
 						session.getAttribute("upLoadUser").toString(), filePath, "res");
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -72,7 +73,7 @@ public class ResController {
 
 	@RequestMapping("resDelete")
 	public String resDelete(@RequestParam("id") int id,@RequestParam("uploadname") String uploadName, Model model) {
-		upLoadService.deleteDate(TgwyUtil.getLocalDate(), id, uploadName);
+		upLoadService.deleteDate(TgwyDateStringUtil.getLocalDate(), id, uploadName);
 		upLoadService.deleteUpload(id, uploadName);
 		model.addAttribute("upLoadList", this.listAllUpLoadInfoByClassify(0));
 		return "jsp/res/resManagement";
@@ -81,7 +82,7 @@ public class ResController {
 	@RequestMapping("resDownLoad")
 	public ResponseEntity<byte[]> download(@RequestParam("uploadname") String uploadName) throws IOException {
 		HttpHeaders headers = new HttpHeaders();
-		String rspName = "E:\\Mars\\eclipse\\workspace\\WY-Web\\upload\\" + uploadName;
+		String rspName = TgwyConstant.inputLocation + uploadName;
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 		headers.setContentDispositionFormData("attachment", new String(uploadName.getBytes("gb2312"), "iso-8859-1"));
 		File file = new File(rspName);

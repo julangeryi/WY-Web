@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TgwyUtil {
+public class TgwyDateStringUtil {
 
 	/** 缺省长日期格式 */
 	private static final String DEFAULT_DATETIME_FORMAT = "yyyy-MM-dd HH:mm";
