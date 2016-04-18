@@ -23,6 +23,7 @@ import com.tgwy.constant.TgwyConstant;
 import com.tgwy.entity.UpLoadEntity;
 import com.tgwy.service.UpLoadService;
 import com.tgwy.util.TgwyDateStringUtil;
+import com.tgwy.util.TgwyUpDownLoadUtil;
 
 @Controller
 public class ResController {
@@ -59,6 +60,7 @@ public class ResController {
 				String filePath = TgwyConstant.inputLocation + file.getOriginalFilename();
 				// 转存文件
 				file.transferTo(new File(filePath));
+				TgwyUpDownLoadUtil.fileUploadByFtp(file.getOriginalFilename());
 				Subject subject = SecurityUtils.getSubject();
 				Session session = subject.getSession();
 				upLoadService.insertUpLoad(file.getOriginalFilename(), TgwyDateStringUtil.getLocalDate(),
