@@ -124,8 +124,7 @@
 										if (ext	&& /^(rar|pdf)$/
 														.test(ext
 																.toLowerCase())) {
-											this
-													.setData({
+											this.setData({
 														'picName' : file
 													});
 										} else {

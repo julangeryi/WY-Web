@@ -106,7 +106,6 @@
 								var categories = [];
 								var values = [];
 								var legend = [];
-								
 								$.ajax({
 									url : "${pageContext.request.contextPath}/getOutRainInfo.do",
 									type : "GET",
@@ -217,10 +216,8 @@
 									// 基于准备好的dom，初始化echarts实例
 									var myChart = echarts.init(document
 											.getElementById('main2'));
-
 									// 指定图表的配置项和数据
 									var option = {
-
 										title : {
 											text : '地下水位图'
 										},
