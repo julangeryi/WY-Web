@@ -28,8 +28,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getOutWaterLevelCategory" resultType="String">
-	    SELECT distinct DATE_FORMAT(t.datetime,'%Y-%m-%d %H:%i:%s') FROM out_wl t 
+	    SELECT distinct DATE_FORMAT(t.datetime,'%Y-%m-%d %H') FROM out_wl t 
 	</select>
+	
+	
+	<!-- 获取测量点丢失时间集合 -->
+	<select id="getOutWaterLevleCategoryBySensorId" resultType="String">
+	    select distinct date_format(t.datetime,'%Y-%m-%d %H') from out_wl t where date_format(t.datetime,'%Y-%m-%d %H') 
+	    	not in (select date_format(t.datetime,'%Y-%m-%d %H') from out_wl t where t.sensor_id=#{0} );	    
+	</select>
+	
+	<!-- 获取测量点正常时间集合 -->
+	<select id="getOutWaterNormaleCategoryBySensorId" resultType="String">
+		 select distinct date_format(t.datetime,'%Y-%m-%d %H') from out_wl t where t.sensor_id=#{0} order by t.datetime 
+	</select>
+	
+	<!-- //通过ID和时间获取特定的值 -->
+	<select id="getOutWaterValueByidAndTime" resultType="java.lang.Double">
+	    select t.value from out_wl t where t.sensor_id=#{0} and date_format(t.datetime,'%Y-%m-%d %H') = date_format(#{1},'%Y-%m-%d %H');
+	</select>
+	
 	
 		<!-- History -->
 	

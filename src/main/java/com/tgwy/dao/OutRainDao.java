@@ -18,10 +18,20 @@ public interface OutRainDao {
 	
 	public List<Double> getRainValueBySensorId(Integer sensorId);
 	
-	public List<String> getRainCategoryBySensorId(Integer sensorId);
 	
 	//History
 	
 	public List<Double> getRainHistoryQueryValue(Integer sensorId,String from ,String to);
+	
+	//通过sensor_id 获取丢失测量点的测量时间
+	public List<String> getRainCategoryBySensorId(Integer sensorId);
+	
+	//通过sensor_id 获取正常测量点的测量时间
+	public List<String> getRainNormaleCategoryBySensorId(Integer sensorId);
+	
+	//通过ID和时间获取特定的值
+	public Double getRainValueByidAndTime(Integer sensorId,String dateTime);
+	
+	
 
 }

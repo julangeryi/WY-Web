@@ -33,13 +33,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    select t.value from out_rain t where t.sensor_id=#{sensorId}
 	</select>
 	
+	<!-- 获取丢失测量点的时间集合 -->
 	<select id="getRainCategoryBySensorId" resultType="String">
-	    select date_format(t.datetime,'%Y-%m-%d') from out_rain t where t.sensor_id=#{0} order by t.datetime;
+	    select distinct date_format(t.datetime,'%Y-%m-%d') from out_rain t where date_format(t.datetime,'%Y-%m-%d') 
+	    not in (select date_format(t.datetime,'%Y-%m-%d') from out_rain t where t.sensor_id=#{0} );
+	</select>
+	
+	<!-- 获取正常测量点的时间结合 -->
+	<select id="getRainNormaleCategoryBySensorId" resultType="String">
+	    select distinct date_format(t.datetime,'%Y-%m-%d') from out_rain t where t.sensor_id=#{0} order by t.datetime;
+	</select>
+	
+	<!-- //通过ID和时间获取特定的值 -->
+	<select id="getRainValueByidAndTime" resultType="java.lang.Double">
+	    select t.value from out_rain t where t.sensor_id=#{0} and date_format(t.datetime,'%Y-%m-%d') = date_format(#{1},'%Y-%m-%d');
 	</select>
 	
 	<select id="getRainCategory" resultType="String">
-	    SELECT distinct DATE_FORMAT(t.datetime,'%Y-%m-%d') FROM out_rain t 
+	    SELECT distinct DATE_FORMAT(t.datetime,'%Y-%m-%d') FROM out_rain t order by t.datetime
 	</select>
+	
+	
+	
 	
 	
 	

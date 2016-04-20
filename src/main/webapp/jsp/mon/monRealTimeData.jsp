@@ -99,188 +99,159 @@
 							</ul>
 							<div id="normal-tabs-1">
 								<div id="main1" style="width: 1100px; height: 400px;"></div>
-								
-								<script type="text/javascript">
-									
-								var myChart = echarts.init(document.getElementById('main1'));
-								var categories = [];
-								var values = [];
-								var legend = [];
-								$.ajax({
-									url : "${pageContext.request.contextPath}/getOutRainInfo.do",
-									type : "GET",
-									dataType : "json",
-									async : false,
-									success:function(json){
-										values = json.values;
-										categories = json.categories;
-									}
-									
-								});
-								// 指定图表的配置项和数据
-								var option = {
 
-									title : {
-										text : '地表降雨量'
-									},
-									tooltip : {},
-									legend : {
-										data : [ '雨量(1)','雨量(2)' ]
-									},
-									xAxis : [ {
-										type : 'category',
-										 boundaryGap : false,
-										data : categories
-									}],
-									yAxis : {},
-									series : [ {
-										name : '雨量(1)',
-										type : 'line',
-										data : values[0]
-										} ,
-										{
+								<script type="text/javascript">
+									var myChart = echarts.init(document
+											.getElementById('main1'));
+									var categories = [];
+									var values = [];
+									var legend = [];
+									$
+											.ajax({
+												url : "${pageContext.request.contextPath}/getOutRainInfo.do",
+												type : "GET",
+												dataType : "json",
+												async : false,
+												success : function(json) {
+													values = json.values;
+													categories = json.categories;
+												}
+
+											});
+									// 指定图表的配置项和数据
+									var option = {
+
+										title : {
+											text : '地表降雨量'
+										},
+										tooltip : {},
+										legend : {
+											data : [ '雨量(1)', '雨量(2)' ]
+										},
+										xAxis : [ {
+											type : 'category',
+											boundaryGap : false,
+											data : categories
+										} ],
+										yAxis : {},
+										series : [ {
+											name : '雨量(1)',
+											type : 'line',
+											data : values[0]
+										}, {
 											name : '雨量(2)',
 											type : 'line',
 											data : values[1]
-											}  
-									]
-								};
-								myChart.setOption(option);
-								</script>
-								
-								
-								
-								<script type="text/javascript">
-								  $(document).ready(function () {  
-								        setInterval("startRequest()", 10000);  
-								    });
-								  
-								  function startRequest(){
-									  
-									 	var myChart = echarts.init(document.getElementById('main1'));
-										var categories = [];
-										var values = [];
-										var legend = [];
-										
-										$.ajax({
-											url : "${pageContext.request.contextPath}/getOutRainInfo.do",
-											type : "GET",
-											dataType : "json",
-											async : false,
-											success:function(json){
-												values = json.values;
-												categories = json.categories;
-											}
-											
-										});
-										// 指定图表的配置项和数据
-										var option = {
-
-											title : {
-												text : '地表降雨量'
-											},
-											tooltip : {},
-											legend : {
-												data : [ '雨量(1)','雨量(2)' ]
-											},
-											xAxis : [ {
-												type : 'category',
-												 boundaryGap : false,
-												data : categories
-											}],
-											yAxis : {},
-											series : [ {
-												name : '雨量(1)',
-												type : 'line',
-												data : values[0]
-												} ,
-												{
-													name : '雨量(2)',
-													type : 'line',
-													data : values[1]
-													}  
-											]
-										};
-										myChart.setOption(option);
-										
-								  }
-								
-	
-								
+										} ]
+									};
+									myChart.setOption(option);
 								</script>
 
 							</div>
 							<div id="normal-tabs-2">
 								<div id="main2" style="width: 1100px; height: 400px;"></div>
 								<script type="text/javascript">
-								var myChart = echarts.init(document.getElementById('main2'));
-								var categories = [];
-								var values = [];
-								var legend = [];
-								$.ajax({
-									url : "${pageContext.request.contextPath}/getOutWaterLevelInfo.do",
-									type : "GET",
-									dataType : "json",
-									async : false,
-									success:function(json){
-										values = json.values;
-										categories = json.categories;
-									}
-									
-								});
-								// 指定图表的配置项和数据
-								var option = {
+									var myChart = echarts.init(document
+											.getElementById('main2'));
+									var categories = [];
+									var values = [];
+									var legend = [];
+									$
+											.ajax({
+												url : "${pageContext.request.contextPath}/getOutWaterLevelInfo.do",
+												type : "GET",
+												dataType : "json",
+												async : false,
+												success : function(json) {
+													values = json.values;
+													categories = json.categories;
+												}
 
-									title : {
-										text : '地下水位图'
-									},
-									tooltip : {},
-									legend : {
-										data : [ '地下水位(1)号监测点','地下水位(2)号监测点' ]
-									},
-									xAxis : [ {
-										type : 'category',
-										 boundaryGap : false,
-										data : categories
-									}],
-									yAxis : {},
-									series : [ {
-										name : '地下水位(1)号监测点',
-										type : 'line',
-										data : values[0]
-										} ,
-										{
-											name : '地下水位(2)号监测点',
+											});
+									// 指定图表的配置项和数据
+									var option = {
+
+										title : {
+											text : '地下水位图'
+										},
+										tooltip : {},
+										legend : {
+											data : [ '(1)号监测点', '(2)号监测点',
+													'(3)号监测点', '(4)号监测点',
+													'(5)号监测点', '(6)号监测点',
+													'(7)号监测点', '(8)号监测点' ]
+										},
+										xAxis : [ {
+											type : 'category',
+											boundaryGap : false,
+											data : categories
+										} ],
+										yAxis : {},
+										series : [ {
+											name : '(1)号监测点',
+											type : 'line',
+											data : values[0]
+										}, {
+											name : '(2)号监测点',
 											type : 'line',
 											data : values[1]
-											}  
-									]
-								};
-								myChart.setOption(option);
+										}, {
+											name : '(3)号监测点',
+											type : 'line',
+											data : values[2]
+										}, {
+											name : '(4)号监测点',
+											type : 'line',
+											data : values[3]
+										}, {
+											name : '(5)号监测点',
+											type : 'line',
+											data : values[4]
+										}, {
+											name : '(6)号监测点',
+											type : 'line',
+											data : values[5]
+										}, {
+											name : '(7)号监测点',
+											type : 'line',
+											data : values[6]
+										}, {
+											name : '(8)号监测点',
+											type : 'line',
+											data : values[7]
+										} ]
+									};
+									myChart.setOption(option);
 								</script>
-																
+
 								<script type="text/javascript">
-								  $(document).ready(function () {  
-								        setInterval("startOutWaterLevelRequest()", 10000);  
-								    });
-								  
-								  function startOutWaterLevelRequest(){
-									  
-									 	var myChart = echarts.init(document.getElementById('main2'));
+									$(document)
+											.ready(
+													function() {
+														setInterval(
+																"startOutWaterLevelRequest()",
+																600000);
+													});
+
+									function startOutWaterLevelRequest() {
+
+										var myChart = echarts.init(document
+												.getElementById('main2'));
 										var categories = [];
 										var values = [];
-										var legend = [];										
-										$.ajax({
-											url : "${pageContext.request.contextPath}/getOutWaterLevelInfo.do",
-											type : "GET",
-											dataType : "json",
-											async : false,
-											success:function(json){
-												values = json.values;
-												categories = json.categories;
-											}
-											
-										});
+										var legend = [];
+										$
+												.ajax({
+													url : "${pageContext.request.contextPath}/getOutWaterLevelInfo.do",
+													type : "GET",
+													dataType : "json",
+													async : false,
+													success : function(json) {
+														values = json.values;
+														categories = json.categories;
+													}
+
+												});
 										// 指定图表的配置项和数据
 										var option = {
 
@@ -289,32 +260,54 @@
 											},
 											tooltip : {},
 											legend : {
-												data : [ '地下水位(1)号监测点','地下水位(2)号监测点' ]
+												data : [ '(1)号监测点', '(2)号监测点',
+														'(3)号监测点', '(4)号监测点',
+														'(5)号监测点', '(6)号监测点',
+														'(7)号监测点', '(8)号监测点' ]
 											},
 											xAxis : [ {
 												type : 'category',
-												 boundaryGap : false,
+												boundaryGap : false,
 												data : categories
-											}],
+											} ],
 											yAxis : {},
 											series : [ {
-												name : '地下水位(1)号监测点',
+												name : '(1)号监测点',
 												type : 'line',
 												data : values[0]
-												} ,
-												{
-													name : '地下水位(2)号监测点',
-													type : 'line',
-													data : values[1]
-													}  
-											]
+											}, {
+												name : '(2)号监测点',
+												type : 'line',
+												data : values[1]
+											}, {
+												name : '(3)号监测点',
+												type : 'line',
+												data : values[2]
+											}, {
+												name : '(4)号监测点',
+												type : 'line',
+												data : values[3]
+											}, {
+												name : '(5)号监测点',
+												type : 'line',
+												data : values[4]
+											}, {
+												name : '(6)号监测点',
+												type : 'line',
+												data : values[5]
+											}, {
+												name : '(7)号监测点',
+												type : 'line',
+												data : values[6]
+											}, {
+												name : '(8)号监测点',
+												type : 'line',
+												data : values[7]
+											} ]
 										};
 										myChart.setOption(option);
-										
-								  }
-								
-	
-								
+
+									}
 								</script>
 							</div>
 							<div id="normal-tabs-3">

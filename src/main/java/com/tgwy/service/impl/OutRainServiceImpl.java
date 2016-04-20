@@ -54,4 +54,17 @@ public class OutRainServiceImpl implements OutRainService {
 		return outRainDao.getRainCategoryBySensorId(sensorId);
 	}
 
+	//通过sensor_id 获取正常测量点的测量时间
+	public List<String> getRainNormaleCategoryBySensorId(Integer sensorId) {
+		// TODO Auto-generated method stub
+		return outRainDao.getRainNormaleCategoryBySensorId(sensorId);
+	}
+
+	public Double getRainValueByidAndTime(Integer sensorId, String dateTime) {
+		// TODO Auto-generated method stub
+		 return outRainDao.getRainValueByidAndTime(sensorId, dateTime);
+	}
+
+	//通过ID和时间获取特定的值
+
 }

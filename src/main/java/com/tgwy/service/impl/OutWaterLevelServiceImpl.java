@@ -44,4 +44,22 @@ public class OutWaterLevelServiceImpl implements OutWaterLevelService{
 		return outWaterLevleDao.getOutWaterLevelHistoryQueryValue(sensorId, from, to);
 	}
 
+	//获取此测量点丢失时间点集合
+	public List<String> getOutWaterLevleCategoryBySensorId(Integer sensorId) {
+		// TODO Auto-generated method stub
+		return outWaterLevleDao.getOutWaterLevleCategoryBySensorId(sensorId);
+	}
+
+	//获取此测量点正常时间点集合
+	public List<String> getOutWaterNormaleCategoryBySensorId(Integer sensorId) {
+		// TODO Auto-generated method stub
+		return outWaterLevleDao.getOutWaterNormaleCategoryBySensorId(sensorId);
+	}
+
+	//通过ID和时间获取特定的值
+	public Double getOutWaterValueByidAndTime(Integer sensorId, String dateTime) {
+		// TODO Auto-generated method stub
+		return outWaterLevleDao.getOutWaterValueByidAndTime(sensorId, dateTime);
+	}
+
 }
