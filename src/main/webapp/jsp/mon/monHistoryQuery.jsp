@@ -51,6 +51,7 @@
 <script type="text/javascript"
 	src="assets/js/minified/aui-production.min.js"></script>
 <script src="assets/js/echarts.min.js"></script>
+<script src="assets/js/jquery-form.js"></script>
 
 <script>
 	jQuery(window).load(function() {
@@ -86,40 +87,7 @@
 
 			<div id="page-content">
 				<div class="example-box">
-				
-					<script type="text/javascript">
-					
-						function query(){
-							
-						}
-					</script>
-				
-				
-					<form id="demo-form" action="${pageContext.request.contextPath}/monOutRainQueryInfo.do" class="col-md-12" method="post" />
-						<div class="example-code clearfix">
-							<div class="form-row col-lg-3 float-left form-vertical">
-								<div class="form-input">
-									<input type="text" size="10" class="fromDate" name="from"
-										title="" value="请选择开始时间" />
-								</div>
-							</div>
-	
-							<div class="form-row col-lg-3 float-left form-vertical">
-								<div class="form-input">
-									<input type="text" size="10" class="toDate" name="to"
-										value="请选择结束时间" />
-								</div>
-							</div>
-	
-							<div class="form-row col-lg-1 float-left form-vertical">
-								<div class="form-submit">
-									<input type="submit" class="btn medium bg-blue" />
-								</div>
-							</div>
-						</div>
-					</form>
-					
-					
+					<!-- action="${pageContext.request.contextPath}/monOutRainQueryInfo.do" method="post"-->
 					<div class="example-code">
 						<div class="tabs">
 							<ul>
@@ -129,164 +97,264 @@
 								<li><a href="#normal-tabs-4" title="Tab 4">报警信息</a></li>
 							</ul>
 							<div id="normal-tabs-1">
+								<form id="demo-form" class="col-md-12" >
+									<div class="example-code clearfix">
+										<div class="form-row col-lg-3 float-left form-vertical">
+											<div class="form-input">
+												<input type="text" size="10" class="fromDate" name="from"
+													title="" value="请选择开始时间" />
+											</div>
+										</div>
+	
+										<div class="form-row col-lg-3 float-left form-vertical">
+											<div class="form-input">
+												<input type="text" size="10" class="toDate" name="to"
+													value="请选择结束时间" />
+											</div>
+										</div>
+	
+										<div class="form-row col-lg-1 float-left form-vertical">
+											<div class="form-submit">
+												<input type="button" id="btn" class="btn medium bg-blue" />
+											</div>
+										</div>
+									</div>
+								</form>
+
 								<div id="main1" style="width: 1100px; height: 400px;"></div>
 								<script type="text/javascript">
-									var myChart = echarts.init(document
-											.getElementById('main1'));
-									var categories = [];
-									var values = [];
-									var legend = [];
-									$
-											.ajax({
-												url : "${pageContext.request.contextPath}/getOutRainQueryInfo.do",
-												type : "GET",
-												dataType : "json",
-												async : false,
-												success : function(json) {
-													values = json.values;
-													categories = json.categories;
-												}
-
-											});
-									// 指定图表的配置项和数据
-									var option = {
-
-										title : {
-											text : '地表降雨量'
-										},
-										tooltip : {},
-										legend : {
-											data : [ '雨量(1)', '雨量(2)' ]
-										},
-										toolbox : {
-											show : true,
-											feature : {
-												saveAsImage : {
-													show : true
-												}
+								
+								var myChart = echarts.init(document.getElementById('main1'));
+								var categories = [];
+								var values = [];
+								var legend = [];
+								$.ajax({
+											url : "${pageContext.request.contextPath}/getOutRainQueryInfo.do",
+											type : "GET",
+											dataType : "json",
+											async : false,
+											success : function(json) {
+												values = json.values;
+												categories = json.categories;
 											}
-										},
-										xAxis : [ {
-											type : 'category',
-											 boundaryGap : false,
-											data : categories
-										} ],
-										yAxis : {},
-										series : [ {
-											name : '雨量(1)',
-											type : 'line',
-											data : values[0]
-										}, {
-											name : '雨量(2)',
-											type : 'line',
-											data : values[1]
-										} ]
-									};
-									myChart.setOption(option);
+
+										});
+								// 指定图表的配置项和数据
+								var option = {
+
+									title : {
+										text : '地表降雨量'
+									},
+									tooltip : {},
+									legend : {
+										data : [ '雨量(1)', '雨量(2)' ]
+									},
+									toolbox : {
+										show : true,
+										feature : {
+											saveAsImage : {
+												show : true
+											}
+										}
+									},
+									xAxis : [ {
+										type : 'category',
+										 boundaryGap : false,
+										data : categories
+									} ],
+									yAxis : {},
+									series : [ {
+										name : '雨量(1)',
+										type : 'line',
+										data : values[0]
+									}, {
+										name : '雨量(2)',
+										type : 'line',
+										data : values[1]
+									} ]
+								};
+								myChart.setOption(option);
+								
+									$(function(){
+										$('#btn').click(function(){
+											$.ajax({
+												url:'${pageContext.request.contextPath}/monOutRainQueryInfo.do',
+												type:"post",
+												async:false,
+												data:$("#demo-form").serialize(),
+												success:function(data){
+													var myChart = echarts.init(document.getElementById('main1'));
+													var categories = [];
+													var values = [];
+													var legend = [];
+													$.ajax({
+															url : "${pageContext.request.contextPath}/getOutRainQueryInfo.do",
+															type : "GET",
+															dataType : "json",
+															async : false,
+															success : function(json) {
+																values = json.values;
+																categories = json.categories;
+															}
+
+													});
+													// 指定图表的配置项和数据
+													var option = {
+
+														title : {
+															text : '地表降雨量'
+														},
+														tooltip : {},
+														legend : {
+															data : [ '雨量(1)', '雨量(2)']
+														},
+														toolbox : {
+															show : true,
+															feature : {
+																saveAsImage : {
+																	show : true
+																}
+															}
+														},
+														xAxis : [ {
+															type : 'category',
+															boundaryGap : false,
+															data : categories
+														} ],
+														yAxis : {},
+														series : [ {
+															name : '雨量(1)',
+															type : 'line',
+															data : values[0]
+														}, {
+															name : '雨量(2)',
+															type : 'line',
+															data : values[1]
+														}
+														]
+													};
+													myChart.setOption(option);
+													
+												}
+												
+											});
+										});
+									});
+									</script>
+							</div>
+							
+							<div id="normal-tabs-2">
+								<form id="demo-form-2" class="col-md-12" >
+									<div class="example-code clearfix">
+										<div class="form-row col-lg-3 float-left form-vertical">
+											<div class="form-input">
+												<input type="text" size="10" class="fromDate" name="from-2"  value="请选择开始时间" />
+											</div>
+										</div>
+	
+										<div class="form-row col-lg-3 float-left form-vertical">
+											<div class="form-input">
+												<input type="text" size="10" class="toDate" name="to-2" 	value="请选择结束时间" />
+											</div>
+										</div>
+	
+										<div class="form-row col-lg-1 float-left form-vertical">
+											<div class="form-submit">
+												<input type="button" id="btn-2" class="btn medium bg-blue" />
+											</div>
+										</div>
+									</div>
+								</form>
+								<div id="main2" style="width: 1100px; height: 400px;"></div>
+								<script type="text/javascript">
+								
+								var myChart2 = echarts.init(document.getElementById('main2'));
+								var categories2 = [];
+								var values2 = [];
+								var legend2 = [];
+								$.ajax({
+											url : "${pageContext.request.contextPath}/getOutWaterLevelInfo.do",
+											type : "GET",
+											dataType : "json",
+											async : false,
+											success : function(json) {
+												values2 = json.values;
+												categories2 = json.categories;
+											}
+
+										});
+								// 指定图表的配置项和数据
+								var option2 = {
+
+									title : {
+										text : '地下水位图'
+									},
+									tooltip : {},
+									legend : {
+										data : [ '(1)号监测点', '(2)号监测点','(3)号监测点', '(4)号监测点','(5)号监测点', '(6)号监测点','(7)号监测点', '(8)号监测点' ]
+									},
+									toolbox : {
+										show : true,
+										feature : {
+											saveAsImage : {
+												show : true
+											}
+										}
+									},
+									xAxis : [ {
+										type : 'category',
+										boundaryGap : false,
+										data : categories2
+									} ],
+									yAxis : {},
+									series : [ {
+										name : '(1)号监测点',
+										type : 'line',
+										data : values2[0]
+									}, {
+										name : '(2)号监测点',
+										type : 'line',
+										data : values2[1]
+									}, {
+										name : '(3)号监测点',
+										type : 'line',
+										data : values2[2]
+									}, {
+										name : '(4)号监测点',
+										type : 'line',
+										data : values2[3]
+									}, {
+										name : '(5)号监测点',
+										type : 'line',
+										data : values2[4]
+									}, {
+										name : '(6)号监测点',
+										type : 'line',
+										data : values2[5]
+									}, {
+										name : '(7)号监测点',
+										type : 'line',
+										data : values2[6]
+									}, {
+										name : '(8)号监测点',
+										type : 'line',
+										data : values2[7]
+									}
+									]
+								};
+								myChart2.setOption(option2);
 								</script>
-				</div>
-				<div id="normal-tabs-2">
-					<div id="main2" style="width: 1000px; height: 400px;"></div>
-					<script type="text/javascript">
-						// 基于准备好的dom，初始化echarts实例
-						var myChart = echarts.init(document
-								.getElementById('main2'));
-
-						// 指定图表的配置项和数据
-						var option = {
-
-							title : {
-								text : '地下水位图'
-							},
-							tooltip : {},
-							legend : {
-								data : [ '销量' ]
-							},
-							xAxis : {
-								data : [ "衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子" ]
-							},
-							yAxis : {},
-							series : [ {
-								name : '销量',
-								type : 'line',
-								data : [ 5, 20, 36, 10, 10, 20 ]
-							} ]
-						};
-
-						// 使用刚指定的配置项和数据显示图表。
-						myChart.setOption(option);
-					</script>
-
-				</div>
-				<div id="normal-tabs-3">
-					<div id="main3" style="width: 600px; height: 400px;"></div>
-					<script type="text/javascript">
-						// 基于准备好的dom，初始化echarts实例
-						var myChart = echarts.init(document
-								.getElementById('main3'));
-
-						// 指定图表的配置项和数据
-						var option = {
-							title : {
-								text : '深孔位移图'
-							},
-							tooltip : {},
-							legend : {
-								data : [ '销量' ]
-							},
-							xAxis : {
-								data : [ "衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子" ]
-							},
-							yAxis : {},
-							series : [ {
-								name : '销量',
-								type : 'bar',
-								data : [ 5, 20, 36, 10, 10, 20 ]
-							} ]
-						};
-
-						// 使用刚指定的配置项和数据显示图表。
-						myChart.setOption(option);
-					</script>
-				</div>
-				<div id="normal-tabs-4">
-					<div id="main4" style="width: 600px; height: 400px;"></div>
-					<script type="text/javascript">
-						// 基于准备好的dom，初始化echarts实例
-						var myChart = echarts.init(document
-								.getElementById('main4'));
-
-						// 指定图表的配置项和数据
-						var option = {
-							title : {
-								text : '报警信息'
-							},
-							tooltip : {},
-							legend : {
-								data : [ '销量' ]
-							},
-							xAxis : {
-								data : [ "衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子" ]
-							},
-							yAxis : {},
-							series : [ {
-								name : '销量',
-								type : 'bar',
-								data : [ 5, 20, 36, 10, 10, 20 ]
-							} ]
-						};
-
-						// 使用刚指定的配置项和数据显示图表。
-						myChart.setOption(option);
-					</script>
+								
+							</div>
+							<div id="normal-tabs-3"></div>
+							<div id="normal-tabs-4"></div>
+						</div>
+					</div>
 				</div>
 			</div>
+			<!-- #page-content -->
 		</div>
-	</div>
-	</div>
-	<!-- #page-content -->
-	</div>
-	<!-- #page-main -->
+		<!-- #page-main -->
 	</div>
 	<!-- #page-wrapper -->
 

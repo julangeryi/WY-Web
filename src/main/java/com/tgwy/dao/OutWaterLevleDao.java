@@ -14,5 +14,7 @@ public interface OutWaterLevleDao {
 	
 	public List<String> getOutWaterLevelCategory();
 	
+	public List<Double> getOutWaterLevelHistoryQueryValue(Integer sensorId, String from ,String to);
+	
 	
 }

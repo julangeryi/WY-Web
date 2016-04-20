@@ -198,7 +198,7 @@
 									href="${pageContext.request.contextPath}/monRealTimeData.do"
 									title="Login"><i class="glyph-icon icon-chevron-right"></i>实时数据</a>
 								</li>
-								<li><a
+								<li class="dropdown-submenu"><a
 									href="${pageContext.request.contextPath}/monHistoryQuery.do"
 									title="Login"><i class="glyph-icon icon-chevron-right"></i>历史查询</a>
 								</li>

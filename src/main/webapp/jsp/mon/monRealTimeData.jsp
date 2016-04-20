@@ -211,36 +211,111 @@
 
 							</div>
 							<div id="normal-tabs-2">
-								<div id="main2" style="width: 1000px; height: 400px;"></div>
+								<div id="main2" style="width: 1100px; height: 400px;"></div>
 								<script type="text/javascript">
-									// 基于准备好的dom，初始化echarts实例
-									var myChart = echarts.init(document
-											.getElementById('main2'));
-									// 指定图表的配置项和数据
-									var option = {
-										title : {
-											text : '地下水位图'
-										},
-										tooltip : {},
-										legend : {
-											data : [ '销量' ]
-										},
-										xAxis : {
-											data : [ "衬衫", "羊毛衫", "雪纺衫", "裤子",
-													"高跟鞋", "袜子" ]
-										},
-										yAxis : {},
-										series : [ {
-											name : '销量',
+								var myChart = echarts.init(document.getElementById('main2'));
+								var categories = [];
+								var values = [];
+								var legend = [];
+								$.ajax({
+									url : "${pageContext.request.contextPath}/getOutWaterLevelInfo.do",
+									type : "GET",
+									dataType : "json",
+									async : false,
+									success:function(json){
+										values = json.values;
+										categories = json.categories;
+									}
+									
+								});
+								// 指定图表的配置项和数据
+								var option = {
+
+									title : {
+										text : '地下水位图'
+									},
+									tooltip : {},
+									legend : {
+										data : [ '地下水位(1)号监测点','地下水位(2)号监测点' ]
+									},
+									xAxis : [ {
+										type : 'category',
+										 boundaryGap : false,
+										data : categories
+									}],
+									yAxis : {},
+									series : [ {
+										name : '地下水位(1)号监测点',
+										type : 'line',
+										data : values[0]
+										} ,
+										{
+											name : '地下水位(2)号监测点',
 											type : 'line',
-											data : [ 5, 20, 36, 10, 10, 20 ]
-										} ]
-									};
-
-									// 使用刚指定的配置项和数据显示图表。
-									myChart.setOption(option);
+											data : values[1]
+											}  
+									]
+								};
+								myChart.setOption(option);
 								</script>
+																
+								<script type="text/javascript">
+								  $(document).ready(function () {  
+								        setInterval("startOutWaterLevelRequest()", 10000);  
+								    });
+								  
+								  function startOutWaterLevelRequest(){
+									  
+									 	var myChart = echarts.init(document.getElementById('main2'));
+										var categories = [];
+										var values = [];
+										var legend = [];										
+										$.ajax({
+											url : "${pageContext.request.contextPath}/getOutWaterLevelInfo.do",
+											type : "GET",
+											dataType : "json",
+											async : false,
+											success:function(json){
+												values = json.values;
+												categories = json.categories;
+											}
+											
+										});
+										// 指定图表的配置项和数据
+										var option = {
 
+											title : {
+												text : '地下水位图'
+											},
+											tooltip : {},
+											legend : {
+												data : [ '地下水位(1)号监测点','地下水位(2)号监测点' ]
+											},
+											xAxis : [ {
+												type : 'category',
+												 boundaryGap : false,
+												data : categories
+											}],
+											yAxis : {},
+											series : [ {
+												name : '地下水位(1)号监测点',
+												type : 'line',
+												data : values[0]
+												} ,
+												{
+													name : '地下水位(2)号监测点',
+													type : 'line',
+													data : values[1]
+													}  
+											]
+										};
+										myChart.setOption(option);
+										
+								  }
+								
+	
+								
+								</script>
 							</div>
 							<div id="normal-tabs-3">
 								<div id="main3" style="width: 600px; height: 400px;"></div>

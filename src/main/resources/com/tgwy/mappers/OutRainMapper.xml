@@ -33,6 +33,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    select t.value from out_rain t where t.sensor_id=#{sensorId}
 	</select>
 	
+	<select id="getRainCategoryBySensorId" resultType="String">
+	    select date_format(t.datetime,'%Y-%m-%d') from out_rain t where t.sensor_id=#{0} order by t.datetime;
+	</select>
+	
 	<select id="getRainCategory" resultType="String">
 	    SELECT distinct DATE_FORMAT(t.datetime,'%Y-%m-%d') FROM out_rain t 
 	</select>
@@ -44,7 +48,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- History -->
 	
 	<select id="getRainHistoryQueryValue" resultType="java.lang.Double" >
-	    select t.value from out_rain t where t.sensor_id=#{0} and t.datetime &gt; DATE_FORMAT(#{1},'%Y-%m-%d') and t.datetime &lt; DATE_FORMAT(#{2},'%Y-%m-%d');
+	    select t.value from out_rain t where t.sensor_id=#{0} and unix_timestamp(t.datetime) &gt; 
+	    unix_timestamp(DATE_FORMAT(#{1},'%Y-%m-%d %h:%i')) and unix_timestamp(t.datetime) &lt; unix_timestamp(DATE_FORMAT(#{2},'%Y-%m-%d %h:%i'));
 	</select>
 	
 	

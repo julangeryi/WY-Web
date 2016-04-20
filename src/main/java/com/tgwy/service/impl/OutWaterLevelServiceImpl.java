@@ -39,4 +39,9 @@ public class OutWaterLevelServiceImpl implements OutWaterLevelService{
 		return outWaterLevleDao.getOutWaterLevelCategory();
 	}
 
+	public List<Double> getOutWaterLevelHistoryQueryValue(Integer sensorId, String from, String to) {
+		// TODO Auto-generated method stub
+		return outWaterLevleDao.getOutWaterLevelHistoryQueryValue(sensorId, from, to);
+	}
+
 }

@@ -13,5 +13,7 @@ public interface OutWaterLevelService {
 	public List<Double> getOutWaterLevelValueBySensorId(int sensorId);
 	
 	public List<String> getOutWaterLevelCategory();
+	
+	public List<Double> getOutWaterLevelHistoryQueryValue(Integer sensorId, String from ,String to);
 
 }

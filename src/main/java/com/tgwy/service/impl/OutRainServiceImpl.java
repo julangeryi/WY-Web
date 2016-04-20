@@ -49,4 +49,9 @@ public class OutRainServiceImpl implements OutRainService {
 		return outRainDao.getRainHistoryQueryValue(sensorId,from, to);
 	}
 
+	public List<String> getRainCategoryBySensorId(Integer sensorId) {
+		// TODO Auto-generated method stub
+		return outRainDao.getRainCategoryBySensorId(sensorId);
+	}
+
 }

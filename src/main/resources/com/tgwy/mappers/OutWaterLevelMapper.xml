@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="dateTime" column="datetime" />
 	</resultMap>
 
-	<select id="getOutWaterLevelLegend" resultString="String">	
+	<select id="getOutWaterLevelLegend" resultType="String">	
 	    select distinct CONCAT('地下水位监测(',t.sensor_id,')点') from out_wl t order by t.sensor_id;
 	</select>
 	
@@ -28,7 +28,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getOutWaterLevelCategory" resultType="String">
-	    SELECT distinct DATE_FORMAT(t.datetime,'%Y-%m-%d') FROM out_wl t 
+	    SELECT distinct DATE_FORMAT(t.datetime,'%Y-%m-%d %H:%i:%s') FROM out_wl t 
 	</select>
+	
+		<!-- History -->
+	
+	<select id="getOutWaterLevelHistoryQueryValue" resultType="java.lang.Double" >
+	    select t.value from out_wl t where t.sensor_id=#{0} and unix_timestamp(t.datetime) &gt; unix_timestamp(DATE_FORMAT(#{1},'%Y-%m-%d %H:%i:%s')) and unix_timestamp(t.datetime) &lt; unix_timestamp(DATE_FORMAT(#{2},'%Y-%m-%d %H:%i:%s'));
+	</select>
+	
 	
 </mapper> 

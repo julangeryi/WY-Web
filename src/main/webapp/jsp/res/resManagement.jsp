@@ -119,23 +119,16 @@
 								{
 									action : '${pageContext.request.contextPath}/upLoad.do',
 									name : 'uploadFile',
-									responseType : 'json',
+									async:false,
 									onSubmit : function(file, ext) {
-										if (ext	&& /^(rar|pdf)$/
-														.test(ext
-																.toLowerCase())) {
-											this.setData({
-														'picName' : file
-													});
+										if (ext	&& /^(rar|pdf)$/.test(ext.toLowerCase())) {
+											this.setData({'uploadFile' : file});
 										} else {
 											alert("请上传格式为 rar|pdf的文件！");
 											return false;
 										}
 									},
-									onComplete : function(
-											file,
-											response) {
-										alert("ssdfad");
+									onComplete : function() {
 									}
 								});
 					});

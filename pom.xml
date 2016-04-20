@@ -227,6 +227,14 @@
 			<artifactId>commons-net</artifactId>
 			<version>3.3</version>
 		</dependency>
+		
+		<dependency>  
+        <groupId>org.codehaus.jackson</groupId>  
+        <artifactId>jackson-mapper-asl</artifactId>  
+        <version>1.9.8</version>  
+        <type>jar</type>  
+        <scope>compile</scope>  
+    </dependency> 
 
 	</dependencies>
 

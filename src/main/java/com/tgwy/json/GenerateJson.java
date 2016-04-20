@@ -66,7 +66,9 @@ public class GenerateJson {
 		List<String> outRainLegend = outRainService.getRainLegend();
 
 		List<String> outRainCategories = outRainService.getRainCategory();
-
+		
+		
+		
 		List<Object[]> outRainValue = new ArrayList<Object[]>();
 
 		for (int i = 0; i < outRainLegendSize; i++) {
@@ -108,6 +110,43 @@ public class GenerateJson {
 		map.put("values", outWaterLevelValue);
 		String json = JSON.toJSONString(map);
 		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "getOutWaterLevelQueryInfo", produces = "text/html;charset=UTF-8")
+	public String getOutWaterLevelQueryInfo(){
+		
+		Subject subject = SecurityUtils.getSubject();
+		Session session = subject.getSession();
+		String from = (String) session.getAttribute("from2");
+		String to = (String) session.getAttribute("to2");
+		
+		int outWaterLevelQuerySize = 0;
+		List<Integer> outWaterLevelQueryLegendSensorId = outWaterLevelService.getOutWaterLevelLegendSensorID();
+		outWaterLevelQuerySize = outWaterLevelQueryLegendSensorId.size();
+
+		List<String> outWaterLevelQueryLegend = outWaterLevelService.getOutWaterLevelLegend();
+
+		List<String> outWaterLevelQueryCategories = outWaterLevelService.getOutWaterLevelCategory();
+
+		List<Object[]> outWaterLevelQueryValue = new ArrayList<Object[]>();
+
+		
+		for (int i = 0; i < outWaterLevelQuerySize; i++) {
+			Integer sensorId = outWaterLevelQueryLegendSensorId.get(i);
+			if("exchageErr".equals(from)||null==from||"".equals(from)){
+				outWaterLevelQueryValue.add(outWaterLevelService.getOutWaterLevelValueBySensorId(sensorId).toArray());
+			}else{
+				outWaterLevelQueryValue.add(outWaterLevelService.getOutWaterLevelHistoryQueryValue(sensorId, from+" 00:01", to+" 23:59").toArray());
+			}
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("legend2", outWaterLevelQueryLegend);
+		map.put("categories2", outWaterLevelQueryCategories);
+		map.put("values2", outWaterLevelQueryValue);
+		String json = JSON.toJSONString(map);
+		return json;
+		
 	}
 
 }
