@@ -95,7 +95,7 @@
 				       document.getElementById("to").value = month+"/"+myDate.getDate()+"/"+myDate.getFullYear();
 				    };
 				</script>
-			
+
 				<div class="example-box">
 					<!-- action="${pageContext.request.contextPath}/monOutRainQueryInfo.do" method="post"-->
 					<div class="example-code">
@@ -107,22 +107,22 @@
 								<li><a href="#normal-tabs-4" title="Tab 4">报警信息</a></li>
 							</ul>
 							<div id="normal-tabs-1">
-								<form id="demo-form" class="col-md-12" >
+								<form id="demo-form" class="col-md-12">
 									<div class="example-code clearfix">
 										<div class="form-row col-lg-3 float-left form-vertical">
 											<div class="form-input">
-												<input type="text" size="10" class="fromDate" id="from" name="from"
-													title="" />
+												<input type="text" size="10" class="fromDate" id="from"
+													name="from" title="" />
 											</div>
 										</div>
-	
+
 										<div class="form-row col-lg-3 float-left form-vertical">
 											<div class="form-input">
-												<input type="text" size="10" class="toDate" id="to" name="to"
-													/>
+												<input type="text" size="10" class="toDate" id="to"
+													name="to" />
 											</div>
 										</div>
-	
+
 										<div class="form-row col-lg-1 float-left form-vertical">
 											<div class="form-submit">
 												<input type="button" id="btn" class="btn medium bg-blue" />
@@ -251,23 +251,25 @@
 										});
 									</script>
 							</div>
-							
+
 							<div id="normal-tabs-2">
-							
-								<form id="demo-form-2" class="col-md-12" >
+
+								<form id="demo-form-2" class="col-md-12">
 									<div class="example-code clearfix">
 										<div class="form-row col-lg-3 float-left form-vertical">
 											<div class="form-input">
-												<input type="text" size="10" class="fromDate" name="from-2"  value="请选择开始时间" />
+												<input type="text" size="10" class="fromDate" name="from-2"
+													value="请选择开始时间" />
 											</div>
 										</div>
-	
+
 										<div class="form-row col-lg-3 float-left form-vertical">
 											<div class="form-input">
-												<input type="text" size="10" class="toDate" name="to-2" 	value="请选择结束时间" />
+												<input type="text" size="10" class="toDate" name="to-2"
+													value="请选择结束时间" />
 											</div>
 										</div>
-	
+
 										<div class="form-row col-lg-1 float-left form-vertical">
 											<div class="form-submit">
 												<input type="button" id="btn-2" class="btn medium bg-blue" />
@@ -352,8 +354,101 @@
 										]
 									};
 									myChart2.setOption(option2);
+									
+									$(function(){
+										$('#btn-2').click(function(){
+											$.ajax({
+												url:'${pageContext.request.contextPath}/monWaterLevelQueryInfo.do',
+												type:"post",
+												async:false,
+												data:$("#demo-form-2").serialize(),
+												success:function(data){
+													var myChart2_2 = echarts.init(document.getElementById('main2'));
+													var categories2_2 = [];
+													var values2_2 = [];
+													var legend2_2 = [];
+													$.ajax({
+															url : "${pageContext.request.contextPath}/getOutWaterLevelQueryInfo.do",
+															type : "GET",
+															dataType : "json",
+															async : false,
+															success : function(json) {
+																values2_2 = json.values2;
+																categories2_2 = json.categories2;
+															}
+
+													});
+													// 指定图表的配置项和数据
+													var option2_2 = {
+
+														title : {
+															text : '地下水位图'
+														},
+														tooltip : {},
+														legend : {
+															data : [ '(1)号监测点', '(2)号监测点','(3)号监测点', '(4)号监测点','(5)号监测点', '(6)号监测点','(7)号监测点', '(8)号监测点']
+														},
+														toolbox : {
+															show : true,
+															feature : {
+																saveAsImage : {
+																	show : true
+																}
+															}
+														},
+														xAxis : [ {
+															type : 'category',
+															boundaryGap : false,
+															data : categories2_2
+														} ],
+														yAxis : {},
+														series : [ {
+															name : '(1)号监测点',
+															type : 'line',
+															data : values2_2[0]
+														}, {
+															name : '(2)号监测点',
+															type : 'line',
+															data : values2_2[1]
+														},{
+															name : '(3)号监测点',
+															type : 'line',
+															data : values2_2[2]
+														}, {
+															name : '(4)号监测点',
+															type : 'line',
+															data : values2_2[3]
+														}, {
+															name : '(5)号监测点',
+															type : 'line',
+															data : values2_2[4]
+														},{
+															name : '(6)号监测点',
+															type : 'line',
+															data : values2_2[5]
+														}, {
+															name : '(7)号监测点',
+															type : 'line',
+															data : values2_2[6]
+														}, {
+															name : '(8)号监测点',
+															type : 'line',
+															data : values2_2[7]
+														}
+														
+														]
+													};
+													myChart2_2.setOption(option2_2);
+													
+												}
+												
+											});
+										});
+									});
+									
+									
 								</script>
-								
+
 							</div>
 							<div id="normal-tabs-3"></div>
 							<div id="normal-tabs-4"></div>
