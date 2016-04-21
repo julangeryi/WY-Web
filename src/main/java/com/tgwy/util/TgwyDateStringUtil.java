@@ -27,6 +27,11 @@ public class TgwyDateStringUtil {
 		return format.format(new Date());
 	}
 	
+	public static String getLocalDateOther() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+		return format.format(new Date());
+	}
+	
 	public static String getOnlyDate(){
 		SimpleDateFormat format = new SimpleDateFormat(LOCAL_DATE_FORMAT);
 		return format.format(new Date());

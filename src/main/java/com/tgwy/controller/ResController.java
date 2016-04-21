@@ -22,6 +22,7 @@ import com.tgwy.constant.TgwyConstant;
 import com.tgwy.entity.UpLoadEntity;
 import com.tgwy.service.UpLoadService;
 import com.tgwy.util.TgwyDateStringUtil;
+import com.tgwy.util.TgwyUpDownLoadUtil;
 
 @Controller
 public class ResController {
@@ -74,6 +75,14 @@ public class ResController {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping("downLoad")
+	public String downLoad(@RequestParam("uploadname") String fileName,Model model){
+		TgwyUpDownLoadUtil.fileDownLoadByFtp(fileName);
+		model.addAttribute("upLoadList", this.listAllUpLoadInfoByClassify(0));
+		return "jsp/res/resManagement";
+		
 	}
 	
 	@RequestMapping("resDeleteHistory")

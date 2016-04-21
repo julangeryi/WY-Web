@@ -63,7 +63,7 @@ public class TgwyUpDownLoadUtil {
                 FTPFile[] fs = ftpClient.listFiles();    
                 for(FTPFile ff:fs){    
                     if(ff.getName().equals(fileName)){    
-                        File localFile = new File("C:\\"+ff.getName());    
+                        File localFile = new File("c:/"+TgwyDateStringUtil.getLocalDateOther()+ff.getName());    
                         OutputStream is = new FileOutputStream(localFile);     
                         ftpClient.retrieveFile(ff.getName(), is);    
                         is.close();    

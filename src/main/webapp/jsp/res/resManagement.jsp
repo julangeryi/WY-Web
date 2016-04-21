@@ -152,7 +152,7 @@
 								<td>${u.upLoadUser }</td>
 								<!-- <a href="${pageContext.request.contextPath}/person/toupdate.action?id=${p.id}">修改</a> -->
 								<td><a
-									href="${pageContext.request.contextPath}/resDownLoad.do?id=${u.id }&uploadname=${u.upLoadName }"
+									href="${pageContext.request.contextPath}/downLoad.do?id=${u.id }&uploadname=${u.upLoadName }"
 									class="btn small bg-blue-alt tooltip-button"
 									data-placement="top" title="下载"> <i
 										class="glyph-icon icon-cloud-download"></i>
