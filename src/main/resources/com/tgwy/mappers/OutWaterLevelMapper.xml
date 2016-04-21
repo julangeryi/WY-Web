@@ -31,6 +31,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    SELECT distinct DATE_FORMAT(t.datetime,'%Y-%m-%d %H') FROM out_wl t 
 	</select>
 	
+	<!-- 通过传入的值，来确定Category -->
+	<select id="getOutWaterLevelCategoryOverLoad" resultType="String">
+	    SELECT distinct DATE_FORMAT(t.datetime,'%Y-%m-%d %H') FROM out_wl t 
+	    where  unix_timestamp(t.datetime) &gt; unix_timestamp(DATE_FORMAT(#{0},'%Y-%m-%d %H')) 
+	       and unix_timestamp(t.datetime) &lt; unix_timestamp(DATE_FORMAT(#{1},'%Y-%m-%d %H'));
+	</select>
+	
 	
 	<!-- 获取测量点丢失时间集合 -->
 	<select id="getOutWaterLevleCategoryBySensorId" resultType="String">
@@ -38,9 +45,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	not in (select date_format(t.datetime,'%Y-%m-%d %H') from out_wl t where t.sensor_id=#{0} );	    
 	</select>
 	
+	<!-- 获取时间区间[from,to]内测量点丢失时间集合 -->
+	<select id="getOutWaterLevleQueryCategoryBySensorId" resultType="String">
+	    	select distinct date_format(t.datetime,'%Y-%m-%d %H') from out_wl t
+	    	where    unix_timestamp(t.datetime) &gt; unix_timestamp(DATE_FORMAT(#{1},'%Y-%m-%d %H')) 
+	      		 and unix_timestamp(t.datetime) &lt; unix_timestamp(DATE_FORMAT(#{2},'%Y-%m-%d %H'))
+	    		 and date_format(t.datetime,'%Y-%m-%d %H') not in (select date_format(t.datetime,'%Y-%m-%d %H') from out_wl t where t.sensor_id=#{0} );	
+	</select>
+	
 	<!-- 获取测量点正常时间集合 -->
 	<select id="getOutWaterNormaleCategoryBySensorId" resultType="String">
 		 select distinct date_format(t.datetime,'%Y-%m-%d %H') from out_wl t where t.sensor_id=#{0} order by t.datetime 
+	</select>
+	
+	<!-- 获取时间区间[from,to]内测量点丢失时间集合 -->
+	<select id="getOutWaterNormaleQueryCategoryBySensorId" resultType="String">
+	    select distinct date_format(t.datetime,'%Y-%m-%d %H') from out_wl t 
+	    where t.sensor_id=#{0}
+	          and unix_timestamp(t.datetime) &gt; unix_timestamp(DATE_FORMAT(#{1},'%Y-%m-%d %H')) 
+	      	  and unix_timestamp(t.datetime) &lt; unix_timestamp(DATE_FORMAT(#{2},'%Y-%m-%d %H'))
+	    order by t.datetime 
 	</select>
 	
 	<!-- //通过ID和时间获取特定的值 -->

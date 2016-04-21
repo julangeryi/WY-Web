@@ -9,6 +9,10 @@ public class TgwyDateStringUtil {
 	/** 缺省长日期格式 */
 	private static final String DEFAULT_DATETIME_FORMAT = "yyyy-MM-dd HH:mm";
 	
+	/*
+	 * 日期格式*/
+	private static final String LOCAL_DATE_FORMAT = "yyyy-MM-dd";
+	
 	/** 缺省长日期格式,精确到秒 */
 	private static final String DEFAULT_DATETIME_FORMAT_SEC = "yyyy-MM-dd HH:mm:ss";
 	
@@ -23,6 +27,17 @@ public class TgwyDateStringUtil {
 		return format.format(new Date());
 	}
 	
+	public static String getOnlyDate(){
+		SimpleDateFormat format = new SimpleDateFormat(LOCAL_DATE_FORMAT);
+		return format.format(new Date());
+	}
+	
+	public static String getCalcutelaterDate(int day){
+		Date d = new Date();
+		SimpleDateFormat format = new SimpleDateFormat(LOCAL_DATE_FORMAT);
+		return format.format(new Date(d.getTime() + day * 24 * 60 * 60 * 1000));
+	}
+	
 	public static String getExchageDateFormat(String dateTimeStr){
 		SimpleDateFormat format = new SimpleDateFormat(DATEPICKER_DATETIME_FORMAT);
 		Date date = null;
@@ -32,7 +47,7 @@ public class TgwyDateStringUtil {
 			SimpleDateFormat local = new SimpleDateFormat(LOCAL_DATETIME_FORMAT);
 			result = local.format(date);
 		} catch (ParseException e) {
-			result = "exchageErr";
+			result = "";
 		}
 		return result;
 	}

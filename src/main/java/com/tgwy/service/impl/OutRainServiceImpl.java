@@ -65,6 +65,24 @@ public class OutRainServiceImpl implements OutRainService {
 		 return outRainDao.getRainValueByidAndTime(sensorId, dateTime);
 	}
 
+	//历史查询--获取丢失测量点的测量时间 通过from和to
+	public List<String> getRainQueryCategoryBySensorId(Integer sensorId, String from, String to) {
+		// TODO Auto-generated method stub
+		return outRainDao.getRainQueryCategoryBySensorId(sensorId, from, to);
+	}
+
+	//历史查询--获取正常测量点的测量时间，通过from和to
+	public List<String> getRainQueryNormaleCategoryBySensorId(Integer sensorId, String from, String to) {
+		// TODO Auto-generated method stub
+		return outRainDao.getRainQueryNormaleCategoryBySensorId(sensorId, from, to);
+	}
+
+	//重载
+	public List<String> getRainCategoryOverLoad(String from, String to) {
+		// TODO Auto-generated method stub
+		return outRainDao.getRainCategoryOverLoad(from, to);
+	}
+
 	//通过ID和时间获取特定的值
 
 }

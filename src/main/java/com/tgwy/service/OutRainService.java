@@ -27,5 +27,14 @@ public interface OutRainService {
 	//通过ID和时间获取特定的值
 	public Double getRainValueByidAndTime(Integer sensorId,String dateTime);
 	
+	//历史查询--获取丢失测量点的测量时间 通过from和to
+	public List<String> getRainQueryCategoryBySensorId(Integer sensorId,String from,String to);
+	
+	//历史查询--获取正常测量点的测量时间，通过from和to
+	public List<String> getRainQueryNormaleCategoryBySensorId(Integer sensorId,String from,String to);
+	
+	
+	//重载
+	public List<String> getRainCategoryOverLoad(String from ,String to);
 
 }

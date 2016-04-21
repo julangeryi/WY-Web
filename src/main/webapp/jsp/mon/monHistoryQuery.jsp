@@ -86,6 +86,16 @@
 			<jsp:include page="../common/page-title.jsp" flush="true"></jsp:include>
 
 			<div id="page-content">
+				<script type="text/javascript">
+				   
+				   window.onload= function(){
+					   var myDate = new Date();
+					   var localMonth = myDate.getMonth()+1;
+					   var month = localMonth<10?'0'+localMonth:localMonth;
+				       document.getElementById("to").value = month+"/"+myDate.getDate()+"/"+myDate.getFullYear();
+				    };
+				</script>
+			
 				<div class="example-box">
 					<!-- action="${pageContext.request.contextPath}/monOutRainQueryInfo.do" method="post"-->
 					<div class="example-code">
@@ -101,15 +111,15 @@
 									<div class="example-code clearfix">
 										<div class="form-row col-lg-3 float-left form-vertical">
 											<div class="form-input">
-												<input type="text" size="10" class="fromDate" name="from"
-													title="" value="请选择开始时间" />
+												<input type="text" size="10" class="fromDate" id="from" name="from"
+													title="" />
 											</div>
 										</div>
 	
 										<div class="form-row col-lg-3 float-left form-vertical">
 											<div class="form-input">
-												<input type="text" size="10" class="toDate" name="to"
-													value="请选择结束时间" />
+												<input type="text" size="10" class="toDate" id="to" name="to"
+													/>
 											</div>
 										</div>
 	
@@ -123,127 +133,127 @@
 
 								<div id="main1" style="width: 1100px; height: 400px;"></div>
 								<script type="text/javascript">
-								
-								var myChart = echarts.init(document.getElementById('main1'));
-								var categories = [];
-								var values = [];
-								var legend = [];
-								$.ajax({
-											url : "${pageContext.request.contextPath}/getOutRainQueryInfo.do",
-											type : "GET",
-											dataType : "json",
-											async : false,
-											success : function(json) {
-												values = json.values;
-												categories = json.categories;
-											}
-
-										});
-								// 指定图表的配置项和数据
-								var option = {
-
-									title : {
-										text : '地表降雨量'
-									},
-									tooltip : {},
-									legend : {
-										data : [ '雨量(1)', '雨量(2)' ]
-									},
-									toolbox : {
-										show : true,
-										feature : {
-											saveAsImage : {
-												show : true
-											}
-										}
-									},
-									xAxis : [ {
-										type : 'category',
-										 boundaryGap : false,
-										data : categories
-									} ],
-									yAxis : {},
-									series : [ {
-										name : '雨量(1)',
-										type : 'line',
-										data : values[0]
-									}, {
-										name : '雨量(2)',
-										type : 'line',
-										data : values[1]
-									} ]
-								};
-								myChart.setOption(option);
-								
-									$(function(){
-										$('#btn').click(function(){
-											$.ajax({
-												url:'${pageContext.request.contextPath}/monOutRainQueryInfo.do',
-												type:"post",
-												async:false,
-												data:$("#demo-form").serialize(),
-												success:function(data){
-													var myChart = echarts.init(document.getElementById('main1'));
-													var categories = [];
-													var values = [];
-													var legend = [];
-													$.ajax({
-															url : "${pageContext.request.contextPath}/getOutRainQueryInfo.do",
-															type : "GET",
-															dataType : "json",
-															async : false,
-															success : function(json) {
-																values = json.values;
-																categories = json.categories;
-															}
-
-													});
-													// 指定图表的配置项和数据
-													var option = {
-
-														title : {
-															text : '地表降雨量'
-														},
-														tooltip : {},
-														legend : {
-															data : [ '雨量(1)', '雨量(2)']
-														},
-														toolbox : {
-															show : true,
-															feature : {
-																saveAsImage : {
-																	show : true
-																}
-															}
-														},
-														xAxis : [ {
-															type : 'category',
-															boundaryGap : false,
-															data : categories
-														} ],
-														yAxis : {},
-														series : [ {
-															name : '雨量(1)',
-															type : 'line',
-															data : values[0]
-														}, {
-															name : '雨量(2)',
-															type : 'line',
-															data : values[1]
-														}
-														]
-													};
-													myChart.setOption(option);
-													
+									var myChart = echarts.init(document.getElementById('main1'));
+									var categories = [];
+									var values = [];
+									var legend = [];
+									$.ajax({
+												url : "${pageContext.request.contextPath}/getOutRainQueryInfo.do",
+												type : "GET",
+												dataType : "json",
+												async : false,
+												success : function(json) {
+													values = json.values;
+													categories = json.categories;
 												}
-												
+	
+											});
+									// 指定图表的配置项和数据
+									var option = {
+	
+										title : {
+											text : '地表降雨量'
+										},
+										tooltip : {},
+										legend : {
+											data : [ '雨量(1)', '雨量(2)' ]
+										},
+										toolbox : {
+											show : true,
+											feature : {
+												saveAsImage : {
+													show : true
+												}
+											}
+										},
+										xAxis : [ {
+											type : 'category',
+											 boundaryGap : false,
+											data : categories
+										} ],
+										yAxis : {},
+										series : [ {
+											name : '雨量(1)',
+											type : 'line',
+											data : values[0]
+										}, {
+											name : '雨量(2)',
+											type : 'line',
+											data : values[1]
+										} ]
+									};
+									myChart.setOption(option);
+									
+										$(function(){
+											$('#btn').click(function(){
+												$.ajax({
+													url:'${pageContext.request.contextPath}/monOutRainQueryInfo.do',
+													type:"post",
+													async:false,
+													data:$("#demo-form").serialize(),
+													success:function(data){
+														var myChart = echarts.init(document.getElementById('main1'));
+														var categories = [];
+														var values = [];
+														var legend = [];
+														$.ajax({
+																url : "${pageContext.request.contextPath}/getOutRainQueryInfo.do",
+																type : "GET",
+																dataType : "json",
+																async : false,
+																success : function(json) {
+																	values = json.values;
+																	categories = json.categories;
+																}
+	
+														});
+														// 指定图表的配置项和数据
+														var option = {
+	
+															title : {
+																text : '地表降雨量'
+															},
+															tooltip : {},
+															legend : {
+																data : [ '雨量(1)', '雨量(2)']
+															},
+															toolbox : {
+																show : true,
+																feature : {
+																	saveAsImage : {
+																		show : true
+																	}
+																}
+															},
+															xAxis : [ {
+																type : 'category',
+																boundaryGap : false,
+																data : categories
+															} ],
+															yAxis : {},
+															series : [ {
+																name : '雨量(1)',
+																type : 'line',
+																data : values[0]
+															}, {
+																name : '雨量(2)',
+																type : 'line',
+																data : values[1]
+															}
+															]
+														};
+														myChart.setOption(option);
+														
+													}
+													
+												});
 											});
 										});
-									});
 									</script>
 							</div>
 							
 							<div id="normal-tabs-2">
+							
 								<form id="demo-form-2" class="col-md-12" >
 									<div class="example-code clearfix">
 										<div class="form-row col-lg-3 float-left form-vertical">
@@ -267,82 +277,81 @@
 								</form>
 								<div id="main2" style="width: 1100px; height: 400px;"></div>
 								<script type="text/javascript">
-								
-								var myChart2 = echarts.init(document.getElementById('main2'));
-								var categories2 = [];
-								var values2 = [];
-								var legend2 = [];
-								$.ajax({
-											url : "${pageContext.request.contextPath}/getOutWaterLevelInfo.do",
-											type : "GET",
-											dataType : "json",
-											async : false,
-											success : function(json) {
-												values2 = json.values;
-												categories2 = json.categories;
+									var myChart2 = echarts.init(document.getElementById('main2'));
+									var categories2 = [];
+									var values2 = [];
+									var legend2 = [];
+									$.ajax({
+												url : "${pageContext.request.contextPath}/getOutWaterLevelQueryInfo.do",
+												type : "GET",
+												dataType : "json",
+												async : false,
+												success : function(json) {
+													values2 = json.values2;
+													categories2 = json.categories2;
+												}
+	
+											});
+									// 指定图表的配置项和数据
+									var option2 = {
+	
+										title : {
+											text : '地下水位图'
+										},
+										tooltip : {},
+										legend : {
+											data : [ '(1)号监测点', '(2)号监测点','(3)号监测点', '(4)号监测点','(5)号监测点', '(6)号监测点','(7)号监测点', '(8)号监测点' ]
+										},
+										toolbox : {
+											show : true,
+											feature : {
+												saveAsImage : {
+													show : true
+												}
 											}
-
-										});
-								// 指定图表的配置项和数据
-								var option2 = {
-
-									title : {
-										text : '地下水位图'
-									},
-									tooltip : {},
-									legend : {
-										data : [ '(1)号监测点', '(2)号监测点','(3)号监测点', '(4)号监测点','(5)号监测点', '(6)号监测点','(7)号监测点', '(8)号监测点' ]
-									},
-									toolbox : {
-										show : true,
-										feature : {
-											saveAsImage : {
-												show : true
-											}
+										},
+										xAxis : [ {
+											type : 'category',
+											boundaryGap : false,
+											data : categories2
+										} ],
+										yAxis : {},
+										series : [ {
+											name : '(1)号监测点',
+											type : 'line',
+											data : values2[0]
+										}, {
+											name : '(2)号监测点',
+											type : 'line',
+											data : values2[1]
+										}, {
+											name : '(3)号监测点',
+											type : 'line',
+											data : values2[2]
+										}, {
+											name : '(4)号监测点',
+											type : 'line',
+											data : values2[3]
+										}, {
+											name : '(5)号监测点',
+											type : 'line',
+											data : values2[4]
+										}, {
+											name : '(6)号监测点',
+											type : 'line',
+											data : values2[5]
+										}, {
+											name : '(7)号监测点',
+											type : 'line',
+											data : values2[6]
+										}, {
+											name : '(8)号监测点',
+											type : 'line',
+											data : values2[7]
 										}
-									},
-									xAxis : [ {
-										type : 'category',
-										boundaryGap : false,
-										data : categories2
-									} ],
-									yAxis : {},
-									series : [ {
-										name : '(1)号监测点',
-										type : 'line',
-										data : values2[0]
-									}, {
-										name : '(2)号监测点',
-										type : 'line',
-										data : values2[1]
-									}, {
-										name : '(3)号监测点',
-										type : 'line',
-										data : values2[2]
-									}, {
-										name : '(4)号监测点',
-										type : 'line',
-										data : values2[3]
-									}, {
-										name : '(5)号监测点',
-										type : 'line',
-										data : values2[4]
-									}, {
-										name : '(6)号监测点',
-										type : 'line',
-										data : values2[5]
-									}, {
-										name : '(7)号监测点',
-										type : 'line',
-										data : values2[6]
-									}, {
-										name : '(8)号监测点',
-										type : 'line',
-										data : values2[7]
-									}
-									]
-								};
-								myChart2.setOption(option2);
+										]
+									};
+									myChart2.setOption(option2);
 								</script>
 								
 							</div>

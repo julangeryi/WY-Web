@@ -49,11 +49,20 @@ public class OutWaterLevelServiceImpl implements OutWaterLevelService{
 		// TODO Auto-generated method stub
 		return outWaterLevleDao.getOutWaterLevleCategoryBySensorId(sensorId);
 	}
-
+	//获取区间内[from,to]内测量点丢失时间点集合
+	public List<String> getOutWaterLevleQueryCategoryBySensorId(Integer sensorId, String from, String to) {
+		// TODO Auto-generated method stub
+		return outWaterLevleDao.getOutWaterLevleQueryCategoryBySensorId(sensorId,from,to);
+	}
 	//获取此测量点正常时间点集合
 	public List<String> getOutWaterNormaleCategoryBySensorId(Integer sensorId) {
 		// TODO Auto-generated method stub
 		return outWaterLevleDao.getOutWaterNormaleCategoryBySensorId(sensorId);
+	}
+	//获取区间内[from,to]内测量点正常时间点集合
+	public List<String> getOutWaterNormaleQueryCategoryBySensorId(Integer sensorId, String from, String to) {
+		// TODO Auto-generated method stub
+		return outWaterLevleDao.getOutWaterNormaleQueryCategoryBySensorId(sensorId, from, to);
 	}
 
 	//通过ID和时间获取特定的值
@@ -61,5 +70,11 @@ public class OutWaterLevelServiceImpl implements OutWaterLevelService{
 		// TODO Auto-generated method stub
 		return outWaterLevleDao.getOutWaterValueByidAndTime(sensorId, dateTime);
 	}
+
+	public List<String> getOutWaterLevelCategoryOverLoad(String from, String to) {
+		// TODO Auto-generated method stub
+		return outWaterLevleDao.getOutWaterLevelCategoryOverLoad(from,to);
+	}
+
 
 }
