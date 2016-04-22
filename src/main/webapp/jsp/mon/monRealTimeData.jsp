@@ -512,6 +512,7 @@
 												bottom : '3%',
 												containLabel : true
 											},
+											
 											tooltip : {
 												trigger : 'axis',
 												showDelay : 0,
