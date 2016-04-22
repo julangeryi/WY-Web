@@ -66,5 +66,4 @@ public class MonController {
 		session.setAttribute("from2", TgwyDateStringUtil.getExchageDateFormat(from));
 		session.setAttribute("to2", TgwyDateStringUtil.getExchageDateFormat(to));
 	}
-
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- AUI Framework -->
 <html>
@@ -311,35 +312,316 @@
 								</script>
 							</div>
 							<div id="normal-tabs-3">
-								<div id="main3" style="width: 600px; height: 400px;"></div>
+								<div id="main3" style="width: 1000px; height: 500px;"></div>
 								<script type="text/javascript">
 									// 基于准备好的dom，初始化echarts实例
-									var myChart = echarts.init(document
-											.getElementById('main3'));
-
+									var myChart3 = echarts.init(document.getElementById('main3'));
+									var group1=[];
+									var group2=[];
+									var group3=[];
+									var group4=[];
+									var group5=[];
+									var group6=[];
+									var group7=[];
+									$.ajax({url : "${pageContext.request.contextPath}/getSAAInfo.do",
+												type : "GET",
+												dataType : "json",
+												async : false,
+												success : function(json) {
+													group1 = json.group1;
+													group2 = json.group2;
+													group3 = json.group3;
+													group4 = json.group4;
+													group5 = json.group5;
+													group6 = json.group6;
+													group7 = json.group7;
+												}
+											});
 									// 指定图表的配置项和数据
-									var option = {
+									option3 = {
 										title : {
-											text : '深孔位移图'
+											text : '山体位移图',
+											subtext : '  当天的信息'
 										},
-										tooltip : {},
+										grid : {
+											left : '3%',
+											right : '4%',
+											bottom : '3%',
+											containLabel : true
+										},
+										tooltip : {
+											trigger : 'axis',
+											showDelay : 0,
+											formatter : function(params) {
+												if (params.value.length > 1) {
+													return params.seriesName
+															+ ' :<br/>'
+															+ params.value[0]
+															+ 'mm '
+															+ params.value[1]
+															+ 'mm '+'<br/>'
+															+ '采集时间<br/>'
+															+ params.value[2]
+															
+															;
+												} else {
+													return params.seriesName
+															+ ' :<br/>'
+															+ params.name
+															+ ' : '
+															+ params.value
+															+ 'mm ';
+												}
+											},
+											axisPointer : {
+												show : true,
+												type : 'cross',
+												lineStyle : {
+													type : 'dashed',
+													width : 1
+												}
+											}
+										},
 										legend : {
-											data : [ '销量' ]
+											selected: {
+									            '山体位移(2)组' : false,
+									            '山体位移(3)组' : false,
+									            '山体位移(4)组' : false,
+									            '山体位移(5)组' : false,
+									            '山体位移(6)组' : false,
+									            '山体位移(7)组' : false
+									        },
+											data : [ '山体位移(1)组', 
+											         '山体位移(2)组', 
+											         '山体位移(3)组',
+											         '山体位移(4)组', 
+											         '山体位移(5)组', 
+											         '山体位移(6)组',
+											         '山体位移(7)组' ],
+											left : 'center'
 										},
-										xAxis : {
-											data : [ "衬衫", "羊毛衫", "雪纺衫", "裤子",
-													"高跟鞋", "袜子" ]
-										},
-										yAxis : {},
-										series : [ {
-											name : '销量',
-											type : 'bar',
-											data : [ 5, 20, 36, 10, 10, 20 ]
-										} ]
+										xAxis : [ {
+											type : 'value',
+											scale : true,
+											axisLabel : {
+												formatter : '{value} mm'
+											},
+											splitLine : {
+												lineStyle : {
+													type : 'dashed'
+												}
+											}
+										} ],
+										yAxis : [ {
+											type : 'value',
+											scale : true,
+											axisLabel : {
+												formatter : '{value} mm'
+											},
+											splitLine : {
+												lineStyle : {
+													type : 'dashed'
+												}
+											}
+										} ],
+										series : [
+												{
+													name : '山体位移(1)组',
+													type : 'scatter',
+													data :  group1
+												},
+												{
+													name : '山体位移(2)组',
+													type : 'scatter',
+													data : group2
+												},
+												{
+													name : '山体位移(3)组',
+													type : 'scatter',
+													data : group3
+												},
+												{
+													name : '山体位移(4)组',
+													type : 'scatter',
+													data : group4
+												},
+												{
+													name : '山体位移(5)组',
+													type : 'scatter',
+													data : group5
+												},
+												{
+													name : '山体位移(6)组',
+													type : 'scatter',
+													data : group6
+												},
+												{
+													name : '山体位移(7)组',
+													type : 'scatter',
+													data : group7,
+													itemStyle :{color: 'lightblue',label:{show:true}}
+												}
+												
+												]
 									};
 
 									// 使用刚指定的配置项和数据显示图表。
-									myChart.setOption(option);
+									myChart3.setOption(option3);
+									
+									//自动刷新
+									$(document).ready(
+											function() {
+												setInterval(
+														"refreshSAAInfo()",
+														3600000);
+											});
+									function refreshSAAInfo(){
+										var myChart3 = echarts.init(document.getElementById('main3'));
+										var group1 = [];
+										var group2 = [];
+										var group3 = [];
+										var group4 = [];
+										var group5 = [];
+										var group6 = [];
+										var group7 = [];
+										$.ajax({
+													url : "${pageContext.request.contextPath}/getSAAInfo.do",
+													type : "GET",
+													dataType : "json",
+													async : false,
+													success : function(json) {
+														group1 = json.group1;
+														group2 = json.group2;
+														group3 = json.group3;
+														group4 = json.group4;
+														group5 = json.group5;
+														group6 = json.group6;
+														group7 = json.group7;
+													}
+
+												});
+										// 指定图表的配置项和数据
+										option3 = {
+											title : {
+												text : '山体位移图',
+												subtext : '  当天的信息'
+											},
+											grid : {
+												left : '3%',
+												right : '4%',
+												bottom : '3%',
+												containLabel : true
+											},
+											tooltip : {
+												trigger : 'axis',
+												showDelay : 0,
+												formatter : function(params) {
+													if (params.value.length > 1) {
+														return params.seriesName
+														+ ' :<br/>'
+														+ params.value[0]
+														+ 'mm '
+														+ params.value[1]
+														+ 'mm '+'<br/>'
+														+ '采集时间<br/>'
+														+ params.value[2]
+													} else {
+														return params.seriesName
+																+ ' :<br/>'
+																+ params.name
+																+ ' : '
+																+ params.value
+																+ 'mm ';
+													}
+												},
+												axisPointer : {
+													show : true,
+													type : 'cross',
+													lineStyle : {
+														type : 'dashed',
+														width : 1
+													}
+												}
+											},
+											legend : {
+												selected: {
+										            '山体位移(2)组' : false,
+										            '山体位移(3)组' : false,
+										            '山体位移(4)组' : false,
+										            '山体位移(5)组' : false,
+										            '山体位移(6)组' : false,
+										            '山体位移(7)组' : false
+										        },
+												data : [ '山体位移(1)组', '山体位移(2)组', '山体位移(3)组','山体位移(4)组', '山体位移(5)组', '山体位移(6)组', '山体位移(7)组' ],
+												left : 'center'
+											},
+											xAxis : [ {
+												type : 'value',
+												scale : true,
+												axisLabel : {
+													formatter : '{value} mm'
+												},
+												splitLine : {
+													lineStyle : {
+														type : 'dashed'
+													}
+												}
+											} ],
+											yAxis : [ {
+												type : 'value',
+												scale : true,
+												axisLabel : {
+													formatter : '{value} mm'
+												},
+												splitLine : {
+													lineStyle : {
+														type : 'dashed'
+													}
+												}
+											} ],
+											series : [
+													{
+														name : '山体位移(1)组',
+														type : 'scatter',
+														data : group1
+													},
+													{
+														name : '山体位移(2)组',
+														type : 'scatter',
+														data : group2
+													},
+													{
+														name : '山体位移(3)组',
+														type : 'scatter',
+														data : group3
+													},
+													{
+														name : '山体位移(4)组',
+														type : 'scatter',
+														data : group4
+													},
+													{
+														name : '山体位移(5)组',
+														type : 'scatter',
+														data : group5
+													},
+													{
+														name : '山体位移(6)组',
+														type : 'scatter',
+														data : group6
+													},
+													{
+														name : '山体位移(7)组',
+														type : 'scatter',
+														data : group7
+													}
+													]
+										};
+
+										// 使用刚指定的配置项和数据显示图表。
+										myChart3.setOption(option3);
+										
+									}
 								</script>
 							</div>
 							<div id="normal-tabs-4">

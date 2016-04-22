@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tgwy.dao.OutSAADao">
+	<resultMap type="OutSAAEntity" id="OutSAAResult">
+		<result property="num" column="NUM" />
+		<result property="detGroupId" column="DET_GROUP_CD" />
+		<result property="sensorId" column="SENSOR_ID" />
+		<result property="xValue" column="X_VALUE" />
+		<result property="yValue" column="Y_VALUE" />
+		<result property="unix" column="UNIX" />
+		<result property="dateTime" column="DATETIME" />
+	</resultMap>
+	
+	<!-- 获取所有关于山体位移的信息 -->
+	<select id="getAllSAAInfo" resultMap="OutSAAResult">
+		select t.num,t.det_group_cd,t.sensor_id,t.x_value,t.y_value,t.unix,t.datetime from out_saa_point t;
+	</select>
+	
+	<!-- 获取所有关于山体位移信息，不含非空x_value或y_value -->
+	<select id="getNotNullSAAInfo" resultMap="OutSAAResult">
+		select t.num,t.det_group_cd,t.sensor_id,t.x_value,t.y_value,t.unix,t.datetime 
+		from out_saa_point t 
+		where t.x_value is not null and t.y_value is not null;	
+	</select>
+	
+	<!-- 通过ID来获取所有非空值 -->
+	<select id="getNotNullSAAInfoByGroup" resultMap="OutSAAResult">
+		select t.num,t.det_group_cd,t.sensor_id,t.x_value,t.y_value,t.unix,t.datetime 
+		from out_saa_point t 
+		where t.x_value is not null and t.y_value is not null and t.det_group_cd =#{0} and date(t.datetime)=curdate();
+			
+	</select>
+	
+</mapper> 
